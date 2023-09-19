@@ -1,4 +1,4 @@
-import ServiceCard from "../components/ServiceCard";
+import ServiceCard from "../components/ServiceCard/ServiceCard";
 import "./ServicesBoard.css";
 
 export const ServicesBoard = () => {

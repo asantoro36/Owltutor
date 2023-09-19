@@ -1,0 +1,23 @@
+.description-points {
+    margin-bottom: 0.5rem;
+    display: flex;
+}
+
+.description-points > svg {
+    margin-right: 0.5rem;
+}
+
+
+
+.divider {
+    border-top: 1px solid #c0c0c0;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.7rem;
+}
