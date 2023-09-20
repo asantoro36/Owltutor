@@ -9,9 +9,26 @@
 
 .card-container {
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     gap: 10px;
-    justify-content: center;
     overflow: auto;
+}
+
+@media (min-width: 768px) {
+    .card-container.columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .card-container.columns {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1300px) {
+    .card-container.columns {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

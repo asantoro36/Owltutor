@@ -6,7 +6,7 @@ export const ServicesBoard = () => {
     return (
         <div className="board">
 
-            <div className="card-container">
+            <div className={'card-container columns'}>
                 {
                     Array.from({ length: 5 }).map((_, i) => (
                         <ServiceCard></ServiceCard>
