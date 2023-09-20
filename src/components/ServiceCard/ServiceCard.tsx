@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
 import PeopleIcon from '@mui/icons-material/People';
+import PersonIcon from '@mui/icons-material/Person';
 import "./ServiceCard.css"
 import Button from '@mui/material/Button';
 import {CardHeader} from "@mui/material";
@@ -30,6 +31,7 @@ export default function RecipeReviewCard() {
                         <Typography className="description-points" color="textSecondary"><AccessTimeIcon/>8 Semanas</Typography>
                         <Typography className="description-points" color="textSecondary"><EventIcon/>Semanal</Typography>
                         <Typography className="description-points" color="textSecondary"><PeopleIcon/>Grupal</Typography>
+                        <Typography className="description-points" color="textSecondary"><PersonIcon/>Juan Perez</Typography>
                     </div>
                 </div>
                 <div className="card-footer">
