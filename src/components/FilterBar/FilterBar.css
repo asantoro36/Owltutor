@@ -5,3 +5,11 @@
 .filter-subtitle-font {
     font-weight: bold !important;
 }
+
+.filter-title {
+    display: flex;
+}
+
+.filter-title > svg {
+    margin: auto 0;
+}

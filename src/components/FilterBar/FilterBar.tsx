@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 export default function FilterBar() {
 
@@ -27,22 +28,7 @@ export default function FilterBar() {
 
     return (
         <Stack className={"filters"} spacing={2}>
-            <div>
-                <Accordion variant={"outlined"}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <Typography variant="subtitle2" className="filter-subtitle-font">Categoría:</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <FormGroup>
-                            {categories.map((value) => <FormControlLabel control={<Checkbox />} label={value} />)}
-                        </FormGroup>
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+            <div><Typography variant={"h6"} className="filter-title"><FilterListIcon/>Filtros</Typography></div>
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Tipo:</Typography>
                 <FormGroup>
@@ -67,6 +53,22 @@ export default function FilterBar() {
                     <FormControlLabel control={<Checkbox />} label="Buena" />
                     <FormControlLabel control={<Checkbox />} label="Muy buena" />
                 </FormGroup>
+            </div>
+            <div>
+                <Accordion variant={"outlined"}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography variant="subtitle2" className="filter-subtitle-font">Categoría:</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <FormGroup>
+                            {categories.map((value) => <FormControlLabel control={<Checkbox />} label={value} />)}
+                        </FormGroup>
+                    </AccordionDetails>
+                </Accordion>
             </div>
         </Stack>
     );
