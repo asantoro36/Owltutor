@@ -28,7 +28,7 @@ export default function FilterBar() {
     return (
         <Stack className={"filters"} spacing={2}>
             <div>
-                <Accordion>
+                <Accordion variant={"outlined"}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"

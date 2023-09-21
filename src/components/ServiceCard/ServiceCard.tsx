@@ -13,7 +13,7 @@ import {CardHeader} from "@mui/material";
 export default function RecipeReviewCard() {
 
     return (
-        <Card sx={{ maxWidth: 300 }}>
+        <Card sx={{ maxWidth: 300 }} elevation={8}>
             <CardHeader
             title="Clases de Guitarra para Principiantes"
             style={{ paddingBottom: '4px' }}>

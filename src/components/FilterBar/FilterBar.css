@@ -3,5 +3,5 @@
 }
 
 .filter-subtitle-font {
-    font-weight: bold;
+    font-weight: bold !important;
 }
