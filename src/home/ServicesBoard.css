@@ -27,9 +27,3 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
-@media (min-width: 1300px) {
-    .card-container.columns {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}

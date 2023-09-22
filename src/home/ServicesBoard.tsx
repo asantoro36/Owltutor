@@ -1,19 +1,29 @@
 import ServiceCard from "../components/ServiceCard/ServiceCard";
 import "./ServicesBoard.css";
-import FilterBar from "../components/FilterBar/FilterBar";
+import {useEffect, useState} from "react";
+import {FilterBar} from "../components/FilterBar/FilterBar";
+import {Service, ServicesList} from "../Entities/Service";
 
 export const ServicesBoard = () => {
 
+    const [classes, setClasses] = useState<Service[]>([])
+    const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
+
+
+    useEffect(() => {
+        setClasses(ServicesList)
+        setFilteredClasses(ServicesList);
+    }, []);
 
     return (
         <div className="board">
             <div className="filter-bar">
-                <FilterBar/>
+                <FilterBar services={classes} setFilteredServices={setFilteredClasses}/>
             </div>
             <div className={'card-container columns'}>
                 {
-                    Array.from({ length: 5 }).map((_, i) => (
-                        <ServiceCard></ServiceCard>
+                    filteredClasses.map((s) => (
+                        <ServiceCard service={s}/>
                     ))
                 }
             </div>
