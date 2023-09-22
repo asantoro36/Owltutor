@@ -18,6 +18,18 @@ interface ServiceCardProps {
 export default function ServiceCard(props: ServiceCardProps) {
 
     const service = props.service
+    const setType = (type: string) => {
+        return type==='Group'? 'Grupal' : 'Individual';
+    }
+
+    const setFrequency = (frequency: string) => {
+        if(frequency === 'unique')
+            return "Única"
+        else if (frequency === 'weekly')
+            return 'Semanal'
+        return 'Mensual'
+    }
+
     return (
         <Card sx={{ maxWidth: 300 }} elevation={8}>
             <CardHeader
@@ -35,8 +47,8 @@ export default function ServiceCard(props: ServiceCardProps) {
                     <div className="divider"/>
                     <div>
                         <Typography className="description-points" color="textSecondary"><AccessTimeIcon/>{service.duration}</Typography>
-                        <Typography className="description-points" color="textSecondary"><EventIcon/>{service.frequency}</Typography>
-                        <Typography className="description-points" color="textSecondary"><PeopleIcon/>{service.type}</Typography>
+                        <Typography className="description-points" color="textSecondary"><EventIcon/>{setFrequency(service.frequency)}</Typography>
+                        <Typography className="description-points" color="textSecondary"><PeopleIcon/>{setType(service.type)}</Typography>
                         <Typography className="description-points" color="textSecondary"><PersonIcon/>{service.responsible}</Typography>
                     </div>
                 </div>

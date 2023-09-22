@@ -9,7 +9,6 @@ export const ServicesBoard = () => {
     const [classes, setClasses] = useState<Service[]>([])
     const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
 
-
     useEffect(() => {
         setClasses(ServicesList)
         setFilteredClasses(ServicesList);

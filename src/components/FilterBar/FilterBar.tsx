@@ -12,7 +12,6 @@ import {
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import {useState} from "react";
 import {Service} from "../../Entities/Service";
 
 interface FilterBarProps {
@@ -20,16 +19,26 @@ interface FilterBarProps {
     setFilteredServices: (filteredClasses: Service[]) => void;
 }
 
+let INDIVIDUAL = 'individual'
+let GROUP = 'group'
+let UNIQUE = 'unique'
+let WEEKLY = 'weekly'
+let MONTHLY = 'monthly'
+let REGULAR = 'regular'
+let GOOD = 'good'
+let VERY_GOOD = 'veryGood'
+
 const filtersStatus = new Map([
-    ['individual', false],
-    ['group', false],
-    ['unique', false],
-    ['weekly', false],
-    ['monthly', false],
-    ['regular', false],
-    ['good', false],
-    ['veryGood', false]
+    [INDIVIDUAL, false],
+    [GROUP, false],
+    [UNIQUE, false],
+    [WEEKLY, false],
+    [MONTHLY, false],
+    [REGULAR, false],
+    [GOOD, false],
+    [VERY_GOOD, false]
 ]);
+
 
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
@@ -44,10 +53,25 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
         "Diseño Gráfico"
     ]
 
-    const applyFilters = () => {
+    const applyFilters = (filter: string, newValue: boolean) => {
+
+        filtersStatus.set(filter, newValue)
         const filteredServices = services.filter((service: Service) => {
-            return service.type.toLowerCase() === "individual"})
+            return shouldRemove(INDIVIDUAL, service.type.toLowerCase()) &&
+                shouldRemove(GROUP, service.type.toLowerCase()) &&
+                shouldRemove(UNIQUE, service.frequency.toLowerCase()) &&
+                shouldRemove(WEEKLY, service.frequency.toLowerCase()) &&
+                shouldRemove(MONTHLY, service.frequency.toLowerCase())
+        })
         setFilteredServices(filteredServices)
+    }
+
+    const shouldRemove = (param: string, attributeToValidate: string) => {
+        if(filtersStatus.get(param)) {
+            console.log(filtersStatus.get(param) + " " + attributeToValidate === param)
+            return attributeToValidate === param
+        }
+        return true
     }
 
     return (
@@ -56,17 +80,17 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Tipo:</Typography>
                 <FormGroup>
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters()} }/>} label="Individual" />
-                    <FormControlLabel control={<Checkbox onChange={(e) => {filtersStatus.set('group', e.target.checked)} }/>} label="Grupal" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(INDIVIDUAL, e.target.checked )} }/>} label="Individual" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(GROUP, e.target.checked )} }/>} label="Grupal" />
                 </FormGroup>
             </div>
             <Divider />
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Frecuencia:</Typography>
                 <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Única" />
-                    <FormControlLabel control={<Checkbox />} label="Semanal" />
-                    <FormControlLabel control={<Checkbox />} label="Mensual" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(UNIQUE, e.target.checked )} }/>} label="Única" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(WEEKLY, e.target.checked )} }/>} label="Semanal" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(MONTHLY, e.target.checked )} }/>} label="Mensual" />
                 </FormGroup>
             </div>
             <Divider />
