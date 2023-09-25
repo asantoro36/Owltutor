@@ -13,15 +13,13 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {Service} from "../../Entities/Service";
-import {useFilterContext} from "./FilterContext";
+import {GROUP, INDIVIDUAL, useFilterContext} from "./FilterContext";
 
 interface FilterBarProps {
     services: Service[];
     setFilteredServices: (filteredClasses: Service[]) => void;
 }
 
-let INDIVIDUAL = 'individual'
-let GROUP = 'group'
 let UNIQUE = 'unique'
 let WEEKLY = 'weekly'
 let MONTHLY = 'monthly'
@@ -67,8 +65,8 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Tipo:</Typography>
                 <FormGroup>
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(INDIVIDUAL, e.target.checked )} }/>} label="Individual" />
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(GROUP, e.target.checked )} }/>} label="Grupal" />
+                    <FormControlLabel checked={filters.get(INDIVIDUAL)} control={<Checkbox onChange={(e) => {applyFilters(INDIVIDUAL, e.target.checked )} }/>} label="Individual" />
+                    <FormControlLabel checked={filters.get(GROUP)} control={<Checkbox onChange={(e) => {applyFilters(GROUP, e.target.checked )} }/>} label="Grupal" />
                 </FormGroup>
             </div>
             <Divider />

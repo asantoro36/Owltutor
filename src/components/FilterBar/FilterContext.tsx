@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-let INDIVIDUAL = 'individual'
-let GROUP = 'group'
+export let INDIVIDUAL = 'individual'
+export let GROUP = 'group'
 let UNIQUE = 'unique'
 let WEEKLY = 'weekly'
 let MONTHLY = 'monthly'
