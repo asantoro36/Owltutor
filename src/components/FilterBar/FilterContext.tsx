@@ -5,9 +5,7 @@ export let GROUP = 'group'
 export let UNIQUE = 'unique'
 export let WEEKLY = 'weekly'
 export let MONTHLY = 'monthly'
-export let REGULAR = 'regular'
-export let GOOD = 'good'
-export let VERY_GOOD = 'veryGood'
+export let RATING = 'calif'
 
 const filtersSelectedStatus = new Map([
     [INDIVIDUAL, false],
@@ -15,9 +13,7 @@ const filtersSelectedStatus = new Map([
     [UNIQUE, false],
     [WEEKLY, false],
     [MONTHLY, false],
-    [REGULAR, false],
-    [GOOD, false],
-    [VERY_GOOD, false]
+    [RATING, false],
 ]);
 
 const FilterContext = createContext<any>({ filters: filtersSelectedStatus, setFilters: () => {} });

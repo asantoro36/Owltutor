@@ -6,14 +6,15 @@ import {
     AccordionSummary,
     Checkbox, Divider,
     FormControlLabel,
-    FormGroup,
+    FormGroup, Slider,
     Stack
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {Service} from "../../Entities/Service";
-import {GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY} from "./FilterContext";
+import {RATING, GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY} from "./FilterContext";
+import {useEffect, useState} from "react";
 
 interface FilterBarProps {
     services: Service[];
@@ -22,6 +23,7 @@ interface FilterBarProps {
 
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
+    const [sliderValue, setSliderValue] = useState(0);
     const { filters, setFilters } = useFilterContext();
     const categories = [
         "Tutorías escolares",
@@ -43,6 +45,8 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
         const filteredServices = services.filter((service: Service) => {
             let typeValidate = true
             let frequencyValidate = true
+            let ratingValidate = true
+
             if(newFiltersSelectedStatus.get(INDIVIDUAL) || newFiltersSelectedStatus.get(GROUP)) {
                 typeValidate = shouldBeAdded(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelectedStatus)
                 || shouldBeAdded(GROUP, service.type.toLowerCase(), newFiltersSelectedStatus)
@@ -53,7 +57,12 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
                     || shouldBeAdded(WEEKLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
                     || shouldBeAdded(MONTHLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
             }
-            return (typeValidate && frequencyValidate);
+
+            if(newFiltersSelectedStatus.get(RATING)) {
+                ratingValidate = service.rating >= sliderValue
+            }
+
+            return (typeValidate && frequencyValidate && ratingValidate);
         });
 
         setFilteredServices(filteredServices.length !== 0? filteredServices : services)
@@ -62,6 +71,14 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
     const shouldBeAdded = (param: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
         return newFiltersSelectedStatus.get(param) && attributeToValidate === param
     }
+
+    const handleSliderChange = (event: any, newValue: any) => {
+        setSliderValue(newValue);
+    };
+
+    useEffect(() => {
+        applyFilters(RATING, sliderValue !== 0);
+    }, [sliderValue]);
 
     return (
         <Stack className={"filters"} spacing={2}>
@@ -85,11 +102,16 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             <Divider />
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Calificación:</Typography>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Regular" />
-                    <FormControlLabel control={<Checkbox />} label="Buena" />
-                    <FormControlLabel control={<Checkbox />} label="Muy buena" />
-                </FormGroup>
+                <Slider
+                    min={0}
+                    step={0.1}
+                    max={5.0}
+                    track="inverted"
+                    aria-labelledby="track-inverted-slider"
+                    defaultValue={30}
+                    value={sliderValue}
+                    onChange={handleSliderChange}
+                />
             </div>
             <div>
                 <Accordion variant={"outlined"}>
