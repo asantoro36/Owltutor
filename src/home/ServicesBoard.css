@@ -16,9 +16,24 @@
     margin: 0 auto;
 }
 
+#expandable-filter-bar {
+    display: block;
+}
+
+/* Oculta FilterBar */
+#filter-bar {
+    display: none;
+}
+
 @media (min-width: 950px) {
     .card-container.columns {
-        grid-template-columns: repeat(2, 1fr);
+         grid-template-columns: repeat(2, 1fr);
+     }
+    #expandable-filter-bar {
+        display: none;
+    }
+    #filter-bar {
+        display: block;
     }
 }
 
@@ -26,4 +41,13 @@
     .card-container.columns {
         grid-template-columns: repeat(3, 1fr);
     }
+    #expandable-filter-bar {
+        display: none;
+    }
+    #filter-bar {
+        display: block;
+    }
+}
+
+.filter-bar {
 }
