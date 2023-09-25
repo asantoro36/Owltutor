@@ -12,6 +12,13 @@
     margin-right: 0.1rem;
 }
 
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 93%;
+}
+
 .card-footer {
     margin-top: 0.5rem;
 }
@@ -23,6 +30,13 @@
     margin-top: 0.5rem;
 }
 
+.card-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.2rem;
+}
+
 .responsible-name {
     display: flex;
     align-items: center;
@@ -31,12 +45,17 @@
 
 .class-info-items {
     display: flex;
-    gap: 3px;
+    gap: 6px;
     padding: 5px 0;
 }
 
 .class-info {
     margin-bottom: 5px;
+}
+
+.bold-text {
+    font-weight: bold!important;
+    text-decoration: underline;
 }
 
 @media (min-width: 950px) {

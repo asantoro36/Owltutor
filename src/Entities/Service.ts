@@ -161,7 +161,7 @@ const ServicesList: Service[] = [
         responsible: "Eva Zamora",
         responsibleExperience: "Soy Eva, una diseñadora de interiores con una sólida formación y más de 10 años de experiencia en diseño residencial. He trabajado en proyectos de viviendas y apartamentos de lujo, creando ambientes que reflejan la personalidad y las necesidades de mis clientes.",
         duration: "180 minutos",
-        days: ["Flexible scheduling"],
+        days: ["MON","TUE","WED","FRI"],
         cost: 2500,
         comments: []
     },

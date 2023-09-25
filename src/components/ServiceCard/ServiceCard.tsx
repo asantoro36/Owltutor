@@ -34,12 +34,13 @@ export default function ServiceCard(props: ServiceCardProps) {
     }
 
     return (
-        <Card sx={{ maxWidth: 400 }} elevation={8}>
-            <CardHeader
-            title={service.title}
-            subheader= {service.description}/>
-            <CardContent style={{ paddingTop: '4px' }}>
-                <div>
+        <Card sx={{ maxWidth: 400, maxHeight: 500 }} elevation={8}>
+            <CardContent className="card-content">
+                <div className="card-description">
+                    <div>
+                        <Typography color="textPrimary" variant={"h5"}>{service.title}</Typography>
+                        <Typography color="textSecondary">{service.description}</Typography>
+                    </div>
                     <div className={'class-info'}>
                         <div className={'class-info-items'}>
                             <Typography className="description-points" color="textSecondary"><AccessTimeIcon/>{service.duration}</Typography>
@@ -49,11 +50,13 @@ export default function ServiceCard(props: ServiceCardProps) {
                         <div className={'class-info-items'} >
                             <div style={{display:'flex', gap: 5, alignItems: "center"}}>
                             <Typography className="description-points" color="textSecondary"><DateRangeIcon/></Typography>
-                            <Typography className="description-points" color="textSecondary">Lun</Typography>
-                            <Typography className="description-points" color="textSecondary">Mar</Typography>
-                            <Typography className="description-points" color="textSecondary">Mie</Typography>
-                            <Typography className="description-points" color="textSecondary">Jue</Typography>
-                            <Typography className="description-points" color="textSecondary">Vie</Typography>
+                            <Typography className={`description-points ${service.days.includes('MON') ? 'bold-text' : ''}`} color="textSecondary">Lun</Typography>
+                            <Typography className={`description-points ${service.days.includes('THU') ? 'bold-text' : ''}`} color="textSecondary">Mar</Typography>
+                            <Typography className={`description-points ${service.days.includes('WED') ? 'bold-text' : ''}`} color="textSecondary">Mie</Typography>
+                            <Typography className={`description-points ${service.days.includes('TUE') ? 'bold-text' : ''}`} color="textSecondary">Jue</Typography>
+                            <Typography className={`description-points ${service.days.includes('FRI') ? 'bold-text' : ''}`} color="textSecondary">Vie</Typography>
+                            <Typography className={`description-points ${service.days.includes('SAT') ? 'bold-text' : ''}`} color="textSecondary">Sab</Typography>
+                            <Typography className={`description-points ${service.days.includes('SUN') ? 'bold-text' : ''}`} color="textSecondary">Dom</Typography>
                             </div>
                             <Typography className="description-points" color="textSecondary"><GradeIcon/>{service.rating}</Typography>
                         </div>
