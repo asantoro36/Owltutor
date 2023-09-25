@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {FilterBar} from "../components/FilterBar/FilterBar";
 import {Service, ServicesList} from "../Entities/Service";
 import {ExpandableFilterBar} from "../components/FilterBar/ExpandableFilterBar";
+import {FilterProvider} from "../components/FilterBar/FilterContext";
 
 export const ServicesBoard = () => {
 
@@ -17,18 +18,21 @@ export const ServicesBoard = () => {
 
     return (
         <div className="board">
-            <div className="filter-bar">
+            <FilterProvider>
+                <div className="filter-bar">
 
-                <span id={'filter-bar'}> <FilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
-            </div>
-            <div className={'card-container columns'}>
-                <span id={'expandable-filter-bar'}><ExpandableFilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
-                {
-                    filteredClasses.map((s) => (
-                        <ServiceCard service={s}/>
-                    ))
-                }
-            </div>
+                    <span id={'filter-bar'}> <FilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
+                </div>
+
+                <div className={'card-container columns'}>
+                    <span id={'expandable-filter-bar'}><ExpandableFilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
+                    {
+                        filteredClasses.map((s) => (
+                            <ServiceCard service={s}/>
+                        ))
+                    }
+                </div>
+            </FilterProvider>
         </div>
     )
 }

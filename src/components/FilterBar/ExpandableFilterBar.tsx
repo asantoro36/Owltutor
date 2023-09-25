@@ -22,8 +22,6 @@ interface FilterBarProps {
 }
 
 export const ExpandableFilterBar: React.FC<FilterBarProps> = ({ services, setFilteredServices }) => {
-    const [isFilterBarOpen, setIsFilterBarOpen] = useState(false);
-
     return (
         <div>
             <Accordion variant={"outlined"}>

@@ -22,7 +22,7 @@ export default function ServiceCard(props: ServiceCardProps) {
 
     const service = props.service
     const setType = (type: string) => {
-        return type==='Group'? 'Grupal' : 'Individual';
+        return type!=='INDIVIDUAL'? 'Grupal' : 'Individual';
     }
 
     const setFrequency = (frequency: string) => {

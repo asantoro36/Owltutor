@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {Service} from "../../Entities/Service";
+import {useFilterContext} from "./FilterContext";
 
 interface FilterBarProps {
     services: Service[];
@@ -24,24 +25,10 @@ let GROUP = 'group'
 let UNIQUE = 'unique'
 let WEEKLY = 'weekly'
 let MONTHLY = 'monthly'
-let REGULAR = 'regular'
-let GOOD = 'good'
-let VERY_GOOD = 'veryGood'
-
-const filtersStatus = new Map([
-    [INDIVIDUAL, false],
-    [GROUP, false],
-    [UNIQUE, false],
-    [WEEKLY, false],
-    [MONTHLY, false],
-    [REGULAR, false],
-    [GOOD, false],
-    [VERY_GOOD, false]
-]);
-
 
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
+    const { filters, setFilters } = useFilterContext();
     const categories = [
         "Tutorías escolares",
         "Idiomas",
@@ -55,23 +42,23 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
 
     const applyFilters = (filter: string, newValue: boolean) => {
 
-        filtersStatus.set(filter, newValue)
+        const newFiltersSelectedStatus = new Map(filters);
+        newFiltersSelectedStatus.set(filter, newValue);
+        setFilters(newFiltersSelectedStatus);
+
         const filteredServices = services.filter((service: Service) => {
-            return shouldRemove(INDIVIDUAL, service.type.toLowerCase()) &&
-                shouldRemove(GROUP, service.type.toLowerCase()) &&
-                shouldRemove(UNIQUE, service.frequency.toLowerCase()) &&
-                shouldRemove(WEEKLY, service.frequency.toLowerCase()) &&
-                shouldRemove(MONTHLY, service.frequency.toLowerCase())
-        })
-        setFilteredServices(filteredServices)
+            return (
+                shouldRemove(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelectedStatus)
+                || shouldRemove(GROUP, service.type.toLowerCase(), newFiltersSelectedStatus)
+            );
+        });
+        console.log(filters)
+        console.log(filteredServices)
+        setFilteredServices(filteredServices.length !== 0? filteredServices: services)
     }
 
-    const shouldRemove = (param: string, attributeToValidate: string) => {
-        if(filtersStatus.get(param)) {
-            console.log(filtersStatus.get(param) + " " + attributeToValidate === param)
-            return attributeToValidate === param
-        }
-        return true
+    const shouldRemove = (param: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
+        return newFiltersSelectedStatus.get(param) && attributeToValidate === param
     }
 
     return (
