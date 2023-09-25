@@ -1,21 +1,40 @@
 .description-points {
-    margin-bottom: 0.5rem;
     display: flex;
+}
+
+.cost-info {
+    display: flex;
+    align-items: end;
+    padding-left: 3px;
 }
 
 .description-points > svg {
-    margin-right: 0.5rem;
-}
-
-.divider {
-    border-top: 1px solid #c0c0c0;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
+    margin-right: 0.1rem;
 }
 
 .card-footer {
+    margin-top: 0.5rem;
+}
+
+.footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+.responsible-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.class-info-items {
+    display: flex;
+    gap: 3px;
+    padding: 5px 0;
+}
+
+.class-info {
+    margin-bottom: 5px;
 }
