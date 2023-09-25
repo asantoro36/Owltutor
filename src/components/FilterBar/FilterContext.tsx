@@ -2,12 +2,12 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 export let INDIVIDUAL = 'individual'
 export let GROUP = 'group'
-let UNIQUE = 'unique'
-let WEEKLY = 'weekly'
-let MONTHLY = 'monthly'
-let REGULAR = 'regular'
-let GOOD = 'good'
-let VERY_GOOD = 'veryGood'
+export let UNIQUE = 'unique'
+export let WEEKLY = 'weekly'
+export let MONTHLY = 'monthly'
+export let REGULAR = 'regular'
+export let GOOD = 'good'
+export let VERY_GOOD = 'veryGood'
 
 const filtersSelectedStatus = new Map([
     [INDIVIDUAL, false],

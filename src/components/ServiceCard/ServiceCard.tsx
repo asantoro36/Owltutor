@@ -26,9 +26,9 @@ export default function ServiceCard(props: ServiceCardProps) {
     }
 
     const setFrequency = (frequency: string) => {
-        if(frequency === 'unique')
+        if(frequency === 'UNIQUE')
             return "Única"
-        else if (frequency === 'weekly')
+        else if (frequency === 'WEEKLY')
             return 'Semanal'
         return 'Mensual'
     }

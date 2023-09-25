@@ -1,18 +1,13 @@
 import * as React from 'react';
-import { useState } from 'react';
 import "./FilterBar.css";
 import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
-    Checkbox, Divider,
-    FormControlLabel,
     FormGroup,
-    Stack
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { Service } from "../../Entities/Service";
 import {FilterBar} from "./FilterBar";
 

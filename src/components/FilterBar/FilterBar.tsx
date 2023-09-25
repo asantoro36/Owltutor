@@ -13,16 +13,12 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {Service} from "../../Entities/Service";
-import {GROUP, INDIVIDUAL, useFilterContext} from "./FilterContext";
+import {GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY} from "./FilterContext";
 
 interface FilterBarProps {
     services: Service[];
     setFilteredServices: (filteredClasses: Service[]) => void;
 }
-
-let UNIQUE = 'unique'
-let WEEKLY = 'weekly'
-let MONTHLY = 'monthly'
 
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
@@ -45,17 +41,25 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
         setFilters(newFiltersSelectedStatus);
 
         const filteredServices = services.filter((service: Service) => {
-            return (
-                shouldRemove(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelectedStatus)
-                || shouldRemove(GROUP, service.type.toLowerCase(), newFiltersSelectedStatus)
-            );
+            let typeValidate = true
+            let frequencyValidate = true
+            if(newFiltersSelectedStatus.get(INDIVIDUAL) || newFiltersSelectedStatus.get(GROUP)) {
+                typeValidate = shouldBeAdded(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelectedStatus)
+                || shouldBeAdded(GROUP, service.type.toLowerCase(), newFiltersSelectedStatus)
+            }
+
+            if(newFiltersSelectedStatus.get(UNIQUE) || newFiltersSelectedStatus.get(WEEKLY) || newFiltersSelectedStatus.get(MONTHLY)) {
+                frequencyValidate = shouldBeAdded(UNIQUE, service.frequency.toLowerCase(), newFiltersSelectedStatus)
+                    || shouldBeAdded(WEEKLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
+                    || shouldBeAdded(MONTHLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
+            }
+            return (typeValidate && frequencyValidate);
         });
-        console.log(filters)
-        console.log(filteredServices)
-        setFilteredServices(filteredServices.length !== 0? filteredServices: services)
+
+        setFilteredServices(filteredServices.length !== 0? filteredServices : services)
     }
 
-    const shouldRemove = (param: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
+    const shouldBeAdded = (param: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
         return newFiltersSelectedStatus.get(param) && attributeToValidate === param
     }
 
