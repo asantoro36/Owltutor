@@ -43,14 +43,14 @@ const filtersStatus = new Map([
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
     const categories = [
-        "Tutorías Escolares",
-        "Cuidado de Niños",
-        "Clases de Idiomas",
-        "Clases de Música",
-        "Clases de Baile",
-        "Entrenamiento Personal",
-        "Asesoramiento Psicológico",
-        "Diseño Gráfico"
+        "Tutorías escolares",
+        "Idiomas",
+        "Música",
+        "Baile",
+        "Actividad física",
+        "Deportes",
+        "Diseño Gráfico",
+        "Programación"
     ]
 
     const applyFilters = (filter: string, newValue: boolean) => {
