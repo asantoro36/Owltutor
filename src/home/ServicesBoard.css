@@ -16,15 +16,10 @@
     margin: 0 auto;
 }
 
-.side-filter-bar {
-
-}
-
 #expandable-filter-bar {
     display: block;
 }
 
-/* Oculta FilterBar */
 #filter-bar {
     display: none;
 }
@@ -45,10 +40,17 @@
     .card-container.columns {
         grid-template-columns: repeat(3, 1fr);
     }
+
     #expandable-filter-bar {
         display: none;
     }
     #filter-bar {
         display: block;
     }
+}
+
+.services-not-found {
+    align-items: center;
+    align-content: center;
+    grid-column: 1;
 }

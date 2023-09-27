@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {FilterBar} from "../components/FilterBar/FilterBar";
 import {Service, ServicesList} from "../Entities/Service";
 import {ExpandableFilterBar} from "../components/FilterBar/ExpandableFilterBar";
-import {FilterProvider} from "../components/FilterBar/FilterContext";
+import {FilterProvider, useFilterContext} from "../components/FilterBar/FilterContext";
 import Typography from "@mui/material/Typography";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import * as React from "react";
@@ -13,6 +13,7 @@ export const ServicesBoard = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
+    const { filters } = useFilterContext();
 
     useEffect(() => {
         setClasses(ServicesList)
@@ -28,9 +29,12 @@ export const ServicesBoard = () => {
                         <FilterBar services={classes} setFilteredServices={setFilteredClasses}/>
                     </div>
                 </div>
-                <div className={'card-container columns'}>
+                <div className={`card-container ${filteredClasses.length === 0? 'services-not-found' : 'columns'}`}>
                     <span id={'expandable-filter-bar'}><ExpandableFilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
                     {
+                        filteredClasses.length === 0?
+                            <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para está busqueda</Typography>
+                            :
                         filteredClasses.map((s) => (
                             <ServiceCard service={s}/>
                         ))
