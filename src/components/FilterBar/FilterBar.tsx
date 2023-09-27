@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import {Service} from "../../Entities/Service";
 import {RATING, GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY} from "./FilterContext";
 import {useEffect, useState} from "react";
@@ -23,8 +22,7 @@ interface FilterBarProps {
 
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
-    const [sliderValue, setSliderValue] = useState(0);
-    const { filters, setFilters } = useFilterContext();
+    const { filters, setFilters, sliderValue, setSliderValue } = useFilterContext();
     const categories = [
         "Tutorías escolares",
         "Idiomas",
@@ -36,40 +34,56 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
         "Programación"
     ]
 
-    const applyFilters = (filter: string, newValue: boolean) => {
+    const applyFilters = (filterId: string, shouldFilter: boolean) => {
 
-        const newFiltersSelectedStatus = new Map(filters);
-        newFiltersSelectedStatus.set(filter, newValue);
-        setFilters(newFiltersSelectedStatus);
+        const newFiltersSelected = updateFilters(filterId, shouldFilter)
 
         const filteredServices = services.filter((service: Service) => {
             let typeValidate = true
             let frequencyValidate = true
             let ratingValidate = true
 
-            if(newFiltersSelectedStatus.get(INDIVIDUAL) || newFiltersSelectedStatus.get(GROUP)) {
-                typeValidate = shouldBeAdded(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelectedStatus)
-                || shouldBeAdded(GROUP, service.type.toLowerCase(), newFiltersSelectedStatus)
+            console.log(newFiltersSelected)
+            if(newFiltersSelected.includes(INDIVIDUAL) || newFiltersSelected.includes(GROUP)) {
+                typeValidate = shouldBeAdded(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelected)
+                || shouldBeAdded(GROUP, service.type.toLowerCase(), newFiltersSelected)
             }
 
-            if(newFiltersSelectedStatus.get(UNIQUE) || newFiltersSelectedStatus.get(WEEKLY) || newFiltersSelectedStatus.get(MONTHLY)) {
-                frequencyValidate = shouldBeAdded(UNIQUE, service.frequency.toLowerCase(), newFiltersSelectedStatus)
-                    || shouldBeAdded(WEEKLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
-                    || shouldBeAdded(MONTHLY, service.frequency.toLowerCase(), newFiltersSelectedStatus)
+            if(newFiltersSelected.includes(UNIQUE) || newFiltersSelected.includes(WEEKLY) || newFiltersSelected.includes(MONTHLY)) {
+                frequencyValidate = shouldBeAdded(UNIQUE, service.frequency.toLowerCase(), newFiltersSelected)
+                    || shouldBeAdded(WEEKLY, service.frequency.toLowerCase(), newFiltersSelected)
+                    || shouldBeAdded(MONTHLY, service.frequency.toLowerCase(), newFiltersSelected)
             }
 
-            if(newFiltersSelectedStatus.get(RATING)) {
+            if(newFiltersSelected.includes(RATING)) {
                 ratingValidate = service.rating >= sliderValue
             }
 
             return (typeValidate && frequencyValidate && ratingValidate);
         });
 
-        setFilteredServices(filteredServices.length !== 0? filteredServices : services)
+        setFilteredServices(newFiltersSelected.length > 0 ? filteredServices : services)
     }
 
-    const shouldBeAdded = (param: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
-        return newFiltersSelectedStatus.get(param) && attributeToValidate === param
+    const updateFilters = (filterId: string, shouldFilter: boolean) => {
+        const newFiltersSelected = [...filters];
+
+        if(shouldFilter) {
+            if(filterId !==RATING || !newFiltersSelected.includes(RATING))
+                newFiltersSelected.push(filterId)
+        }
+        else {
+            const index = newFiltersSelected.indexOf(filterId);
+            if (index !== -1) {
+                newFiltersSelected.splice(index, 1);
+            }
+        }
+        setFilters(newFiltersSelected);
+        return newFiltersSelected
+    }
+
+    const shouldBeAdded = (filterId: string, attributeToValidate: string, newFiltersSelectedStatus: any) => {
+        return newFiltersSelectedStatus.includes(filterId) && attributeToValidate === filterId
     }
 
     const handleSliderChange = (event: any, newValue: any) => {
@@ -85,8 +99,8 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Tipo:</Typography>
                 <FormGroup>
-                    <FormControlLabel checked={filters.get(INDIVIDUAL)} control={<Checkbox onChange={(e) => {applyFilters(INDIVIDUAL, e.target.checked )} }/>} label="Individual" />
-                    <FormControlLabel checked={filters.get(GROUP)} control={<Checkbox onChange={(e) => {applyFilters(GROUP, e.target.checked )} }/>} label="Grupal" />
+                    <FormControlLabel checked={filters.includes(INDIVIDUAL)} control={<Checkbox onChange={(e) => {applyFilters(INDIVIDUAL, e.target.checked )} }/>} label="Individual" />
+                    <FormControlLabel checked={filters.includes(GROUP)} control={<Checkbox onChange={(e) => {applyFilters(GROUP, e.target.checked )} }/>} label="Grupal" />
                 </FormGroup>
             </div>
             <Divider />
