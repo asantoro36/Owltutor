@@ -6,32 +6,37 @@ import {
     AccordionSummary,
     Checkbox, Divider,
     FormControlLabel,
-    FormGroup, Slider,
+    FormGroup, Radio, RadioGroup, Slider,
     Stack
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Service} from "../../Entities/Service";
-import {RATING, GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY} from "./FilterContext";
-import {useEffect, useState} from "react";
+import {RATING, GROUP, INDIVIDUAL, MONTHLY, UNIQUE, useFilterContext, WEEKLY, CATEGORY} from "./FilterContext";
+import {useEffect} from "react";
 
 interface FilterBarProps {
     services: Service[];
     setFilteredServices: (filteredClasses: Service[]) => void;
 }
 
+interface ICategory {
+    id: number;
+    name: string;
+}
+
 export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredServices}) => {
 
-    const { filters, setFilters, sliderValue, setSliderValue } = useFilterContext();
-    const categories = [
-        "Tutorías escolares",
-        "Idiomas",
-        "Música",
-        "Baile",
-        "Actividad física",
-        "Deportes",
-        "Diseño Gráfico",
-        "Programación"
+    const { filters, setFilters, sliderValue, setSliderValue, categorySelected, setCategorySelected } = useFilterContext();
+    const categories: ICategory[] = [
+        {id: 0, name: "Tutorías escolares"},
+        {id: 1, name: "Idiomas"},
+        {id: 2, name: "Música"},
+        {id: 3, name: "Baile"},
+        {id: 4, name: "Actividad física"},
+        {id: 5, name: "Deportes"},
+        {id: 6, name: "Diseño Gráfico"},
+        {id: 7, name: "Programación"},
     ]
 
     const applyFilters = (filterId: string, shouldFilter: boolean) => {
@@ -42,8 +47,8 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             let typeValidate = true
             let frequencyValidate = true
             let ratingValidate = true
+            let categoryValidate = true
 
-            console.log(newFiltersSelected)
             if(newFiltersSelected.includes(INDIVIDUAL) || newFiltersSelected.includes(GROUP)) {
                 typeValidate = shouldBeAdded(INDIVIDUAL, service.type.toLowerCase(), newFiltersSelected)
                 || shouldBeAdded(GROUP, service.type.toLowerCase(), newFiltersSelected)
@@ -59,7 +64,11 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
                 ratingValidate = service.rating >= sliderValue
             }
 
-            return (typeValidate && frequencyValidate && ratingValidate);
+            if(newFiltersSelected.includes(CATEGORY)) {
+                categoryValidate = service.category === (categories.find((category) => category.id === categorySelected))?.name
+            }
+
+            return (typeValidate && frequencyValidate && ratingValidate && categoryValidate);
         });
 
         setFilteredServices(newFiltersSelected.length > 0 ? filteredServices : services)
@@ -89,6 +98,14 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
     const handleSliderChange = (event: any, newValue: any) => {
         setSliderValue(newValue);
     };
+
+    const handleCategorySelectedOnChange = (value: string) => {
+        setCategorySelected(parseInt(value))
+    }
+
+    useEffect(() => {
+        applyFilters(CATEGORY, categorySelected >= 0);
+    }, [categorySelected]);
 
     useEffect(() => {
         applyFilters(RATING, sliderValue !== 0);
@@ -136,12 +153,19 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
                         <Typography variant="subtitle2" className="filter-subtitle-font">Categoría:</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <FormGroup>
-                            {categories.map((value) => <FormControlLabel control={<Checkbox />} label={value} />)}
-                        </FormGroup>
+                        <RadioGroup
+                            name="use-radio-group"
+                            defaultValue={categorySelected}
+                            value={categorySelected}
+                            onChange={(e, value) => {handleCategorySelectedOnChange(value)}}
+                        >
+                            <FormControlLabel value={-1} label="Todas" control={<Radio />} />
+                            {categories.map((value) => <FormControlLabel value={value.id} label={value.name} control={<Radio />} />)}
+                        </RadioGroup>
                     </AccordionDetails>
                 </Accordion>
             </div>
         </Stack>
     );
 }
+
