@@ -1,4 +1,4 @@
-import AppBar from "../components/AppBar";
+import AppBar from "../components/AppBar/AppBar";
 import {ServicesBoard} from "./ServicesBoard";
 export const Home = () => {
 

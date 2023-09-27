@@ -35,6 +35,8 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
+    const isLogged = () => true;
+
     return (
         <AppBar position="static" >
             <Container maxWidth="xl">
@@ -126,11 +128,15 @@ function ResponsiveAppBar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
+                        {isLogged()?
+                            <span className={"login-button"}><Typography>Login</Typography></span>
+                            :
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                        }
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
