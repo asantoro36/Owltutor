@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Service } from "../../Entities/Service";
 import {FilterBar} from "./FilterBar";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 interface FilterBarProps {
     services: Service[];
@@ -25,7 +26,7 @@ export const ExpandableFilterBar: React.FC<FilterBarProps> = ({ services, setFil
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography variant="subtitle2" className="filter-subtitle-font">Categoría:</Typography>
+                    <Typography variant={"h6"} className="filter-title"><FilterListIcon/>Filtros</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>

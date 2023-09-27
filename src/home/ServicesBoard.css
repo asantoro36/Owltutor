@@ -12,8 +12,12 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 25px;
     overflow: auto;
-    padding: 5px;
+    padding: 5px 5px 5px 20px;
     margin: 0 auto;
+}
+
+.side-filter-bar {
+
 }
 
 #expandable-filter-bar {

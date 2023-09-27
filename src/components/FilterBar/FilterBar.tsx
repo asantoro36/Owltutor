@@ -82,7 +82,6 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
 
     return (
         <Stack className={"filters"} spacing={2}>
-            <div><Typography variant={"h6"} className="filter-title"><FilterListIcon/>Filtros</Typography></div>
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Tipo:</Typography>
                 <FormGroup>

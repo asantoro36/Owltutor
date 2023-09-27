@@ -8,6 +8,7 @@
 
 .filter-title {
     display: flex;
+    padding-bottom: 10px;
 }
 
 .filter-title > svg {
