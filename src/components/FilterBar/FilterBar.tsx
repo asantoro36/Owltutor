@@ -107,9 +107,9 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
             <div>
                 <Typography variant="subtitle2" className="filter-subtitle-font">Frecuencia:</Typography>
                 <FormGroup>
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(UNIQUE, e.target.checked )} }/>} label="Única" />
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(WEEKLY, e.target.checked )} }/>} label="Semanal" />
-                    <FormControlLabel control={<Checkbox onChange={(e) => {applyFilters(MONTHLY, e.target.checked )} }/>} label="Mensual" />
+                    <FormControlLabel checked={filters.includes(UNIQUE)} control={<Checkbox onChange={(e) => {applyFilters(UNIQUE, e.target.checked )} }/>} label="Única" />
+                    <FormControlLabel checked={filters.includes(WEEKLY)} control={<Checkbox onChange={(e) => {applyFilters(WEEKLY, e.target.checked )} }/>} label="Semanal" />
+                    <FormControlLabel checked={filters.includes(MONTHLY)} control={<Checkbox onChange={(e) => {applyFilters(MONTHLY, e.target.checked )} }/>} label="Mensual" />
                 </FormGroup>
             </div>
             <Divider />
