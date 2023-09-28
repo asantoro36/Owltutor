@@ -1,0 +1,10 @@
+.login-button {
+    max-height: 40px;
+    display: inline-block;
+    border: 1px solid white;
+    padding: 10px 25px;
+    background-color: slategray;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
