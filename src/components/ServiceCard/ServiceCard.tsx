@@ -73,7 +73,7 @@ export default function ServiceCard(props: ServiceCardProps) {
                     <Divider/>
                     <div className="footer-content">
                             <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost} </Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
-                            <Button variant="contained" size="small">Contactar</Button>
+                            <div className="contact-button">Contactar</div>
                     </div>
                 </div>
             </CardContent>

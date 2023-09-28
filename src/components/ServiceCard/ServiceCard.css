@@ -58,6 +58,26 @@
     text-decoration: underline;
 }
 
+.contact-button {
+    max-height: 40px;
+    display: inline-block;
+    border: 1px solid white;
+    color: white;
+    padding: 6px 15px;
+    background-color: var(--color-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.contact-button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.contact-button:active {
+    background-color: var(--color-primary-active);
+}
+
 @media (min-width: 950px) {
     .card-container.columns {
         grid-template-columns: repeat(2, 1fr);
