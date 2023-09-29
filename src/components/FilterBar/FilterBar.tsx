@@ -138,6 +138,7 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
                     max={5.0}
                     track="inverted"
                     aria-labelledby="track-inverted-slider"
+                    color={"secondary"}
                     defaultValue={30}
                     value={sliderValue}
                     onChange={handleSliderChange}

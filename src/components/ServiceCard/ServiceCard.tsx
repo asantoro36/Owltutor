@@ -7,8 +7,7 @@ import EventIcon from '@mui/icons-material/Event';
 import PeopleIcon from '@mui/icons-material/People';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import "./ServiceCard.css"
-import Button from '@mui/material/Button';
-import {CardHeader, Divider} from "@mui/material";
+import {Divider} from "@mui/material";
 import {Service} from "../../Entities/Service";
 import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
@@ -39,7 +38,7 @@ export default function ServiceCard(props: ServiceCardProps) {
                 <div className="card-description">
                     <div>
                         <Typography color="textPrimary" variant={"h5"}>{service.title}</Typography>
-                        <Typography color="textSecondary">{service.description}</Typography>
+                        <Typography style={{minHeight: 48}}color="textSecondary">{service.description}</Typography>
                     </div>
                     <div className={'class-info'}>
                         <div className={'class-info-items'}>
