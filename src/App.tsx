@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Home} from "./home/Home";
 import {createTheme, ThemeProvider} from "@mui/material";
+import {Login} from "./login/Login";
 
 const theme = createTheme({
     palette: {
@@ -21,6 +22,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/login" element={<Login/>}/>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

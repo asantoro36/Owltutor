@@ -18,14 +18,21 @@
     background-color: #8c0c36;
 }
 
+
 .create-account-button {
-    max-height: 40px;
-    display: inline-block;
-    border: 1px solid white;
-    padding: 6px 20px;
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
+    display: none;
+}
+
+@media (min-width: 950px) {
+    .create-account-button {
+        max-height: 40px;
+        display: inline-block;
+        border: 1px solid white;
+        padding: 6px 20px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+    }
 }

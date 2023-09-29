@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import './AppBar.css';
+import {useNavigate} from "react-router-dom";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -19,6 +20,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -94,7 +96,9 @@ function ResponsiveAppBar() {
                         {isLogged()?
                             <div className={"appbar-buttons-container"}>
                                 <div className='create-account-button'><Typography fontWeight={"bold"}>Crear cuenta</Typography></div>
-                                <div className='login-button'><Typography>Ingresar</Typography></div>
+                                <div className='login-button' onClick={() => {
+                                    navigate('/login')
+                                }}><Typography>Ingresar</Typography></div>
                             </div>
                             :
                             <Tooltip title="Open settings">
