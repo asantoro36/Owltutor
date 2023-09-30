@@ -2,7 +2,7 @@ import ServiceCard from "../components/ServiceCard/ServiceCard";
 import "./ServicesBoard.css";
 import {useEffect, useState} from "react";
 import {FilterBar} from "../components/FilterBar/FilterBar";
-import {Service, ServicesList} from "../Entities/Service";
+import {Service, ServicesList} from "../entities/Service";
 import {ExpandableFilterBar} from "../components/FilterBar/ExpandableFilterBar";
 import {FilterProvider} from "../components/FilterBar/FilterContext";
 import Typography from "@mui/material/Typography";

@@ -8,7 +8,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import "./ServiceCard.css"
 import {Divider} from "@mui/material";
-import {Service} from "../../Entities/Service";
+import {Service} from "../../entities/Service";
 import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import GradeIcon from '@mui/icons-material/Grade';

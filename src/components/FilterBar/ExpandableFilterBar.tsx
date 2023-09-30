@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Service } from "../../Entities/Service";
+import { Service } from "../../entities/Service";
 import {FilterBar} from "./FilterBar";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
