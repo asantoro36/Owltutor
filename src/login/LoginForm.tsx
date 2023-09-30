@@ -29,7 +29,7 @@ export const LoginForm = () => {
                 <h3 className={"title-form"}>Inicia sesión</h3>
                 <div className={"login-input-form"}>
                     <TextField
-                        variant="outlined"
+                        variant="filled"
                         margin="normal"
                         label="Nombre de usuario o correo electrónico"
                         name="username"
@@ -38,7 +38,7 @@ export const LoginForm = () => {
                         required
                     />
                     <TextField
-                        variant="outlined"
+                        variant="filled"
                         margin="normal"
                         label="Contraseña"
                         name="password"
@@ -47,11 +47,11 @@ export const LoginForm = () => {
                         onChange={handleInputChange}
                         required
                     />
-                    <Typography className={"forget-pass"}><a href={"/"}>Olvidé mi contraseña</a></Typography>
+                    <Typography className={"forget-pass"}><a href={"/password_recover"}>Olvidé mi contraseña</a></Typography>
                 </div>
                 <div className={"login-button-form-container"}>
                     <div
-                        className={"login-button"}
+                        className={"primary-button"}
                     >
                         Iniciar sesión
                     </div>

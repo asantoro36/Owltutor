@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Home} from "./home/Home";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {Login} from "./login/Login";
+import {PasswordRecover} from "./passwordRecover/PasswordRecover";
 
 const theme = createTheme({
     palette: {
@@ -37,6 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/password_recover" element={<PasswordRecover/>}/>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

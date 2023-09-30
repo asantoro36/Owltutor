@@ -96,7 +96,7 @@ function ResponsiveAppBar() {
                         {isLogged()?
                             <div className={"appbar-buttons-container"}>
                                 <div className='create-account-button'><Typography fontWeight={"bold"}>Crear cuenta</Typography></div>
-                                <div className='login-button' onClick={() => {
+                                <div className='primary-button' onClick={() => {
                                     navigate('/login')
                                 }}><Typography>Ingresar</Typography></div>
                             </div>

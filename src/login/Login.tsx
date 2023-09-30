@@ -1,6 +1,6 @@
 import React from "react";
-import AppBar from "../components/AppBar/AppBar";
 import {LoginForm} from "./LoginForm";
+import AppBar from "../components/AppBar/AppBar";
 
 export const Login = () => {
     return (
