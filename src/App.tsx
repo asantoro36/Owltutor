@@ -14,6 +14,20 @@ const theme = createTheme({
             main: '#211520'
         }
     },
+    typography: {
+        fontFamily: [
+            'Roboto',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+    },
 });
 
 function App() {
