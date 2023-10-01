@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
         <AppBar position="static" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <img alt='logo' src={"/logo.png"} width={200}/>
+                    <img onClick={() => navigate("/")} alt='logo' src={"/logo.png"} width={200}/>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"

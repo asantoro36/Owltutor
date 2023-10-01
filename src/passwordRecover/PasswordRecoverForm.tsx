@@ -9,26 +9,30 @@ export const PasswordRecoverForm = () => {
 
     const [userIdentity, setUserIdentity] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-    const [isChangeAvailable, setIsChangeAvailable] = useState(true)
+    const [isUserInserted, setIsUserInserted] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         code: ''
     });
 
-
     const handleInputChange = (event: any) => {
+        //Recupero al user
         setUserIdentity(event.target.value)
+        setFormData({
+            ...formData,
+            ["email"]: event.target.value,
+        });
     };
 
-    const handleSendCode = () => {
-        setIsChangeAvailable(false)
+    const handleSendCode = (event: any) => {
+        setIsUserInserted(true)
     };
 
     return (
         <div className="login-form">
             <h3 className={"title-form"}>Recuperar contraseña</h3>
-            {isChangeAvailable ? (
+            {!isUserInserted ? (
                 <>
                     <div className={"login-input-form"}>
                         <TextField
