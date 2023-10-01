@@ -1,7 +1,16 @@
 .login-form {
     margin: 100px auto;
-    padding: 20px;
+    padding: 20px 40px 40px 40px;
     max-width: 500px;
+
+
+}
+
+@media (min-width: 950px) {
+    .login-form {
+        border: 1px solid darkgrey;
+        box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .login-input-form {
