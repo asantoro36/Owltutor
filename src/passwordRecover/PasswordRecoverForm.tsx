@@ -1,7 +1,8 @@
-import {Divider, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import React, {useState} from "react";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
+import {validateAuthCode} from "../controller/AuthController";
 
 export const PasswordRecoverForm = () => {
 
@@ -9,25 +10,50 @@ export const PasswordRecoverForm = () => {
 
     const [userIdentity, setUserIdentity] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-    const [isUserInserted, setIsUserInserted] = useState(false)
+
+    const [isUserInserted, setIsUserInserted] = useState(false);
+    const [invalidCodeError, setInvalidCodeError] = useState(false);
+    const [passwordValidate, setPasswordValidateError] = useState(false);
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         code: ''
     });
-
+    const [showEmailError, setShowEmailError] = useState(false)
     const handleInputChange = (event: any) => {
-        //Recupero al user
         setUserIdentity(event.target.value)
-        setFormData({
-            ...formData,
-            ["email"]: event.target.value,
-        });
     };
 
     const handleSendCode = (event: any) => {
-        setIsUserInserted(true)
+
+        if(userIdentity.trim() === "") {
+            setShowEmailError(true)
+        } else {
+            //Recupero el user y envio el codigo y seteo el {email o id?}
+            setFormData({
+                ...formData,
+                ["email"]: userIdentity,
+            });
+            setIsUserInserted(true)
+        }
     };
+
+    const handleSendChangePassword = () => {
+        const { password, code } = formData;
+
+        const isValidPassword = password.trim() !== "" && password === passwordRepeat;
+        const isValidCode = validateAuthCode(code);
+
+        setPasswordValidateError(!isValidPassword);
+        setInvalidCodeError(!isValidCode);
+
+        if (isValidPassword && isValidCode) {
+            // Cambiar la contraseña
+            navigate('/login');
+        }
+
+    }
 
     return (
         <div className="login-form">
@@ -43,6 +69,8 @@ export const PasswordRecoverForm = () => {
                             value={userIdentity}
                             onChange={handleInputChange}
                             required
+                            error={showEmailError}
+                            helperText={showEmailError?"Esté campo es obligatorio":""}
                         />
                     </div>
                     <span>
@@ -68,8 +96,13 @@ export const PasswordRecoverForm = () => {
                             label="Código"
                             name="code"
                             value={formData.code}
-                            onChange={handleInputChange}
+                            onChange={(e) => {setFormData({
+                                ...formData,
+                                ["code"]: e.target.value,
+                            })}}
                             required
+                            error={invalidCodeError}
+                            helperText={invalidCodeError?"El código es incorrecto":""}
                         />
                     </div>
                     <div className={"login-input-form"}>
@@ -79,8 +112,13 @@ export const PasswordRecoverForm = () => {
                             label="Ingresa tu nueva contraseña"
                             name="newPassword"
                             value={formData.password}
-                            onChange={handleInputChange}
+                            onChange={(e) => {setFormData({
+                                ...formData,
+                                ["password"]: e.target.value,
+                            })}}
                             required
+                            error={passwordValidate}
+                            helperText={passwordValidate?"La contraseñas no coinciden":""}
                         />
                     </div>
                     <div className={"login-input-form"}>
@@ -90,14 +128,16 @@ export const PasswordRecoverForm = () => {
                             label="Repite la contraseña"
                             name="newPasswordRepeat"
                             value={passwordRepeat}
-                            onChange={handleInputChange}
+                            onChange={(e) => {setPasswordRepeat(e.target.value)}}
                             required
+                            error={passwordValidate}
+                            helperText={passwordValidate?"La contraseñas no coinciden":""}
                         />
                     </div>
                     <div>
                         <div
                             className={"login-button-form-container primary-button"}
-                            onClick={() => navigate('/login')}
+                            onClick={handleSendChangePassword}
                         >
                             Enviar
                         </div>
