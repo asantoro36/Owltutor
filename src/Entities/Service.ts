@@ -182,6 +182,5 @@ const ServicesList: Service[] = [
     }
 ];
 
-
 export {ServicesList};    export type { Service };
 

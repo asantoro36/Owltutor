@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import {TextField} from "@mui/material";
 import "./Login.css"
 import Typography from "@mui/material/Typography";
+import {useNavigate} from "react-router-dom";
 export const LoginForm = () => {
-
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -56,6 +57,7 @@ export const LoginForm = () => {
                     </div>
                     <div
                         className={"button-secondary"}
+                        onClick={() => navigate("/create")}
                     >
                         Crear cuenta
                     </div>

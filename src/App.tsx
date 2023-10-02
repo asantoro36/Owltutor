@@ -5,6 +5,8 @@ import {Home} from "./home/Home";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {Login} from "./login/Login";
 import {PasswordRecover} from "./passwordRecover/PasswordRecover";
+import {CreateAccount} from "./createAccount/CreateAccount";
+import {Congrats} from "./login/Congrats";
 
 const theme = createTheme({
     palette: {
@@ -39,6 +41,8 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/password_recover" element={<PasswordRecover/>}/>
+            <Route path="/create" element={<CreateAccount/>}/>
+            <Route path="/createCongrats" element={<Congrats/>}/>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
