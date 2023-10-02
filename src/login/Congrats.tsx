@@ -1,6 +1,5 @@
 import React from "react";
 import AppBar from "../components/AppBar/AppBar";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Typography from "@mui/material/Typography";
 
 export const Congrats = () => {
