@@ -20,8 +20,11 @@ export const LoginForm = () => {
     };
 
     const handleSubmit = () => {
-        console.log(getUser(formData.username)?.name);
-        console.log(getUser(formData.username));
+        if(!getUser(formData)) {
+            localStorage.setItem('token', "token");
+        }
+
+        navigate("/profile")
     };
 
     return (

@@ -28,7 +28,6 @@ function ResponsiveAppBar() {
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
-
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
@@ -37,7 +36,7 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const isLogged = () => true;
+    const isLogged = () => !!localStorage.getItem('token');
 
     return (
         <AppBar position="static" >
@@ -94,18 +93,18 @@ function ResponsiveAppBar() {
 
                     <Box sx={{ flexGrow: 0 }}>
                         {isLogged()?
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                            :
                             <div className={"appbar-buttons-container"}>
                                 <div className='create-account-button'><Typography fontWeight={"bold"}>Crear cuenta</Typography></div>
                                 <div className='primary-button' onClick={() => {
                                     navigate('/login')
                                 }}><Typography>Ingresar</Typography></div>
                             </div>
-                            :
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                </IconButton>
-                            </Tooltip>
                         }
                         <Menu
                             sx={{ mt: '45px' }}

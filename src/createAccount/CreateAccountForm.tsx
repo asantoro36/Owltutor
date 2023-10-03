@@ -1,6 +1,7 @@
 import {TextField} from "@mui/material";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {createUser} from "../controller/UserController";
 
 export const CreateAccountForm = () => {
 
@@ -49,7 +50,16 @@ export const CreateAccountForm = () => {
         setExperienceError(formData.experience.trim() === "")
 
         if(!titleError && !experienceError) {
-
+            createUser({
+                name: formData.name,
+                surname: formData.surname,
+                mail: formData.mail,
+                phone: formData.phone,
+                password: formData.password,
+                title: formData.title,
+                experience: formData.experience
+            })
+            localStorage.setItem(formData.mail, formData.password)
             navigate("/createCongrats")
         }
     }
