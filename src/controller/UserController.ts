@@ -1,30 +1,30 @@
 import {User} from "../entities/User";
 
 export const createUser = (userForm: User) => {
-    const userDataString = `${userForm.name}|${userForm.surname}|${userForm.mail}|${userForm.phone}|${userForm.password}|${userForm.title}|${userForm.experience}`;
+    const userData = {
+        name: userForm.name,
+        surname: userForm.surname,
+        mail: userForm.mail,
+        phone: userForm.phone,
+        password: userForm.password,
+        title: userForm.title,
+        experience: userForm.experience,
+    };
 
-    localStorage.setItem(userForm.mail, userDataString)
+    const userDataJSON = JSON.stringify(userData);
+    console.log(userDataJSON)
+    localStorage.setItem(userForm.mail, userDataJSON)
 }
 
-export const getUser = (formData: any) => {
-    let userDataString = localStorage.getItem(formData.username)
-    const userDataArray = userDataString? userDataString.split('|') : [];
+export const getUser = (userId: string) => {
+    const userDataJSON = localStorage.getItem(userId);
 
-    if (userDataArray.length === 7) {
-        const [name, surname, mail, phone, password, title, experience] = userDataArray;
-
-        const user: User = {
-            name,
-            surname,
-            mail,
-            phone,
-            password,
-            title,
-            experience,
-        };
-
-        return user.password===formData.password? user : null;
-    } else {
-        return null; // No se pudo parsear correctamente el string
+    if (userDataJSON) {
+        try {
+            return JSON.parse(userDataJSON);
+        } catch (error) {
+            console.error('Error al analizar el JSON del usuario:', error);
+        }
     }
+    return null;
 }

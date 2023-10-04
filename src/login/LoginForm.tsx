@@ -3,7 +3,7 @@ import {TextField} from "@mui/material";
 import "./Login.css"
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
-import {getUser} from "../controller/UserController";
+import {loginUser} from "../controller/AuthController";
 export const LoginForm = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
@@ -20,11 +20,12 @@ export const LoginForm = () => {
     };
 
     const handleSubmit = () => {
-        if(!getUser(formData)) {
-            localStorage.setItem('token', "token");
+        if(!loginUser(formData)) {
+            navigate("/login")
+        } else {
+            navigate("/")
         }
 
-        navigate("/profile")
     };
 
     return (

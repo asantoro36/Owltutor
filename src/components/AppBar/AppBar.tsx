@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import './AppBar.css';
 import {useNavigate} from "react-router-dom";
+import {LogoutUser} from "../../controller/AuthController";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -37,6 +38,11 @@ function ResponsiveAppBar() {
     };
 
     const isLogged = () => !!localStorage.getItem('token');
+
+    const handleLogOut = () => {
+        LogoutUser()
+        navigate("/")
+    };
 
     return (
         <AppBar position="static" >
@@ -100,7 +106,13 @@ function ResponsiveAppBar() {
                             </Tooltip>
                             :
                             <div className={"appbar-buttons-container"}>
-                                <div className='create-account-button'><Typography fontWeight={"bold"}>Crear cuenta</Typography></div>
+                                <div className='create-account-button'>
+                                    <Typography
+                                        fontWeight={"bold"}
+                                        onClick={() => navigate("/create")}
+                                    >Crear cuenta
+                                    </Typography>
+                                </div>
                                 <div className='primary-button' onClick={() => {
                                     navigate('/login')
                                 }}><Typography>Ingresar</Typography></div>
@@ -127,6 +139,9 @@ function ResponsiveAppBar() {
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
+                            <MenuItem key="logout" onClick={handleCloseUserMenu}>
+                                <Typography onClick={handleLogOut} textAlign="center">Cerrar sesión</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

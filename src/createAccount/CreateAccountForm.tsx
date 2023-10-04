@@ -59,7 +59,6 @@ export const CreateAccountForm = () => {
                 title: formData.title,
                 experience: formData.experience
             })
-            localStorage.setItem(formData.mail, formData.password)
             navigate("/createCongrats")
         }
     }
