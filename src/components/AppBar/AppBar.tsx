@@ -17,7 +17,6 @@ import {LogoutUser} from "../../controller/AuthController";
 import {getLoggedUser} from "../../controller/UserController";
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -102,7 +101,8 @@ function ResponsiveAppBar() {
 
                     <Box sx={{ flexGrow: 0 }}>
                         {isLogged()?
-                            <div>
+                            <div className={"appbar-userinfo-container"}>
+                                <div className={"appbar-username"}>{`${loggedUser?.name} ${loggedUser?.surname}`}</div>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="" sx={{ bgcolor: loggedUser?.photoUrl }}>{loggedUser?.name.charAt(0)}{loggedUser?.surname.charAt(0)}</Avatar>
@@ -139,11 +139,9 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Perfil</Typography>
+                            </MenuItem>
                             <MenuItem key="logout" onClick={handleCloseUserMenu}>
                                 <Typography onClick={handleLogOut} textAlign="center">Cerrar sesión</Typography>
                             </MenuItem>
