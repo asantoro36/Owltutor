@@ -48,6 +48,13 @@ export const CreateAccountForm = () => {
         }
     }
 
+    function getRandomColor() {
+        const randomR = Math.floor(Math.random() * 256);
+        const randomG = Math.floor(Math.random() * 256);
+        const randomB = Math.floor(Math.random() * 256);
+        return `rgb(${randomR},${randomG},${randomB})`;
+    }
+
     const handleCreateUserButton = () => {
         setTitleError(formData.title.trim() === "")
         setExperienceError(formData.experience.trim() === "")
@@ -60,7 +67,8 @@ export const CreateAccountForm = () => {
                 phone: formData.phone,
                 password: formData.password,
                 title: formData.title,
-                experience: formData.experience
+                experience: formData.experience,
+                photoUrl: getRandomColor()
             })
             navigate("/createCongrats")
         }

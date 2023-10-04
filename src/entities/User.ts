@@ -6,6 +6,7 @@ interface User {
     password:string;
     title: string;
     experience: string;
+    photoUrl: string;
 }
 
 export type { User };

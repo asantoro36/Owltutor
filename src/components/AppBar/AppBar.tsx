@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import './AppBar.css';
 import {useNavigate} from "react-router-dom";
 import {LogoutUser} from "../../controller/AuthController";
+import {getLoggedUser} from "../../controller/UserController";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -22,6 +23,8 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate();
+
+    const loggedUser = getLoggedUser();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -37,7 +40,7 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const isLogged = () => !!localStorage.getItem('token');
+    const isLogged = () => !!loggedUser;
 
     const handleLogOut = () => {
         LogoutUser()
@@ -99,11 +102,13 @@ function ResponsiveAppBar() {
 
                     <Box sx={{ flexGrow: 0 }}>
                         {isLogged()?
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                </IconButton>
-                            </Tooltip>
+                            <div>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <Avatar alt="" sx={{ bgcolor: loggedUser?.photoUrl }}>{loggedUser?.name.charAt(0)}{loggedUser?.surname.charAt(0)}</Avatar>
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
                             :
                             <div className={"appbar-buttons-container"}>
                                 <div className='create-account-button'>

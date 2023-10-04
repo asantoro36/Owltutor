@@ -9,6 +9,7 @@ export const createUser = (userForm: User) => {
         password: userForm.password,
         title: userForm.title,
         experience: userForm.experience,
+        photoUrl: userForm.photoUrl,
     };
 
     const userDataJSON = JSON.stringify(userData);
@@ -16,8 +17,9 @@ export const createUser = (userForm: User) => {
     localStorage.setItem(userForm.mail, userDataJSON)
 }
 
-export const getUser = (userId: string) => {
-    const userDataJSON = localStorage.getItem(userId);
+export const getLoggedUser = (): User | null => {
+    const userId = localStorage.getItem("token")
+    const userDataJSON = localStorage.getItem(userId ? userId : "");
 
     if (userDataJSON) {
         try {
