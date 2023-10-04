@@ -1,7 +1,8 @@
 import {TextField} from "@mui/material";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {createUser} from "../controller/UserController";
+import {createUser, validateUserExisting} from "../controller/UserController";
+import Typography from "@mui/material/Typography";
 
 export const CreateAccountForm = () => {
 
@@ -12,6 +13,7 @@ export const CreateAccountForm = () => {
     const [phoneError, setPhoneError] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [experienceError, setExperienceError] = useState(false);
+    const [userExistingError, setUserExistingError] = useState(false);
     const [passwordValidate, setPasswordValidateError] = useState(false);
     const [canContinue, setCanContinue] = useState(false);
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -38,6 +40,7 @@ export const CreateAccountForm = () => {
         setSurnameError(formData.surname.trim() === "")
         setMailError(formData.mail.trim() === "")
         setPhoneError(formData.phone.trim() === "")
+        setUserExistingError(validateUserExisting(formData.mail))
         const isValidPassword = formData.password.trim() !== "" && formData.password === passwordRepeat;
         setPasswordValidateError(!isValidPassword);
         if(isValidPassword && !nameError && !surnameError && !mailError && !phoneError) {
@@ -139,6 +142,7 @@ export const CreateAccountForm = () => {
                         error={passwordValidate}
                         helperText={passwordValidate?"La contraseñas no coinciden":""}
                     />
+                    <Typography hidden={!userExistingError} color={"#d32f2f"}>El email utilizado ya existe</Typography>
                     <div
                         className={"login-button-form-container primary-button"}
                         onClick={handleContinueButton}

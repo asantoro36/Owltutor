@@ -28,3 +28,7 @@ export const getUser = (userId: string) => {
     }
     return null;
 }
+
+export const validateUserExisting = (userId: string) => {
+    return !!localStorage.getItem(userId)
+}
