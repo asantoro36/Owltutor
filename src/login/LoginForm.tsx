@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {loginUser} from "../controller/AuthController";
 export const LoginForm = () => {
     const navigate = useNavigate()
+    const [hideLoginError, setHideLoginError] = useState(true);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -21,7 +22,7 @@ export const LoginForm = () => {
 
     const handleSubmit = () => {
         if(!loginUser(formData)) {
-            navigate("/login")
+            setHideLoginError(false);
         } else {
             navigate("/")
         }
@@ -53,6 +54,7 @@ export const LoginForm = () => {
                 />
                 <Typography className={"forget-pass"}><a href={"/password_recover"}>Olvidé mi contraseña</a></Typography>
             </div>
+            <Typography hidden={hideLoginError} color={"#d32f2f"}>El Usuario o contraseña son incorrectos</Typography>
             <div className={"login-button-form-container"}>
                 <div
                     className={"primary-button"}

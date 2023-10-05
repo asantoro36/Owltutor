@@ -17,6 +17,20 @@ export const createUser = (userForm: User) => {
     localStorage.setItem(userForm.mail, userDataJSON)
 }
 
+export const updatePassword = (userEmail: string, newPassword: string) => {
+    const userDataJSON = localStorage.getItem(userEmail);
+    if (userDataJSON) {
+        try {
+            let userData = JSON.parse(userDataJSON);
+            userData.password = newPassword;
+            localStorage.setItem(userEmail, JSON.stringify(userData));
+
+        } catch (error) {
+            console.error('Error al analizar el JSON del usuario:', error);
+        }
+    }
+}
+
 export const getLoggedUser = (): User | null => {
     const userId = localStorage.getItem("token")
     const userDataJSON = localStorage.getItem(userId ? userId : "");

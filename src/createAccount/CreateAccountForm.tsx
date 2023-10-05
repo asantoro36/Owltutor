@@ -129,10 +129,11 @@ export const CreateAccountForm = () => {
                         margin="normal"
                         label="Ingresa tu nueva contraseña"
                         name="newPassword"
+                        type={"password"}
                         value={formData.password}
                         onChange={(e) => {setFormData({
                             ...formData,
-                            ["password"]: e.target.value,
+                            "password": e.target.value,
                         })}}
                         required
                         error={passwordValidate}
@@ -144,6 +145,7 @@ export const CreateAccountForm = () => {
                         margin="normal"
                         label="Repite la contraseña"
                         name="newPasswordRepeat"
+                        type={"password"}
                         value={passwordRepeat}
                         onChange={(e) => {setPasswordRepeat(e.target.value)}}
                         required

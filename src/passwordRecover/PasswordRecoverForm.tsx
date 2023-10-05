@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 import {validateAuthCode} from "../controller/AuthController";
+import {updatePassword} from "../controller/UserController";
 
 export const PasswordRecoverForm = () => {
 
@@ -33,7 +34,7 @@ export const PasswordRecoverForm = () => {
             //Recupero el user y envio el codigo y seteo el {email o id?}
             setFormData({
                 ...formData,
-                ["email"]: userIdentity,
+                "email": userIdentity,
             });
             setIsUserInserted(true)
         }
@@ -49,7 +50,7 @@ export const PasswordRecoverForm = () => {
         setInvalidCodeError(!isValidCode);
 
         if (isValidPassword && isValidCode) {
-            // Cambiar la contraseña
+            updatePassword(formData.email, formData.password);
             navigate('/login');
         }
 
@@ -98,7 +99,7 @@ export const PasswordRecoverForm = () => {
                             value={formData.code}
                             onChange={(e) => {setFormData({
                                 ...formData,
-                                ["code"]: e.target.value,
+                                "code": e.target.value,
                             })}}
                             required
                             error={invalidCodeError}
@@ -114,7 +115,7 @@ export const PasswordRecoverForm = () => {
                             value={formData.password}
                             onChange={(e) => {setFormData({
                                 ...formData,
-                                ["password"]: e.target.value,
+                                "password": e.target.value,
                             })}}
                             required
                             error={passwordValidate}
