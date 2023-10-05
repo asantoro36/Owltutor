@@ -31,8 +31,7 @@
 }
 
 .appbar-username {
-    font-weight: bold;
-    color: black;
+    display: none;
 }
 
 @media (min-width: 950px) {
@@ -47,4 +46,11 @@
         border-radius: 6px;
         cursor: pointer;
     }
+
+    .appbar-username {
+        font-weight: bold;
+        color: black;
+        display: block;
+    }
+
 }
