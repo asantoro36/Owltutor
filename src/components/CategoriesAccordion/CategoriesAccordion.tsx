@@ -2,31 +2,21 @@ import {Accordion, AccordionDetails, AccordionSummary, FormControlLabel, Radio, 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import {useState} from "react";
+import {categories} from "../../entities/Categories";
 
-interface ICategory {
-    id: number;
-    name: string;
-}
+
 
 export const CategoriesAccordion = ({ categorySelected, setCategorySelected }: any) => {
 
-    const categories: ICategory[] = [
-        {id: 0, name: "Tutorías escolares"},
-        {id: 1, name: "Idiomas"},
-        {id: 2, name: "Música"},
-        {id: 3, name: "Baile"},
-        {id: 4, name: "Actividad física"},
-        {id: 5, name: "Deportes"},
-        {id: 6, name: "Diseño Gráfico"},
-        {id: 7, name: "Programación"},
-    ]
+
 
     const handleCategorySelectedOnChange = (value: string) => {
         setCategorySelected(parseInt(value))
     }
 
     return (
-        <Accordion variant={"outlined"}>
+        <Accordion variant={"outlined"} >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
