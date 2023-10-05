@@ -12,6 +12,7 @@ interface Service {
     days: string[],
     cost: number;
     comments: string[];
+    isPublished: boolean;
 }
 
 const ServicesList: Service[] = [
@@ -28,7 +29,8 @@ const ServicesList: Service[] = [
         duration: "60 minutos",
         days: ["MON", "WED"],
         cost: 800,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 1,
@@ -43,7 +45,8 @@ const ServicesList: Service[] = [
         duration: "90 minutos",
         days: ["TUE", "THU"],
         cost: 600,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 2,
@@ -58,7 +61,8 @@ const ServicesList: Service[] = [
         duration: "45 minutos",
         days: ["FRI"],
         cost: 1200,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 3,
@@ -73,7 +77,8 @@ const ServicesList: Service[] = [
         duration: "60 minutos",
         days: ["SAT"],
         cost: 1000,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 4,
@@ -88,7 +93,8 @@ const ServicesList: Service[] = [
         duration: "75 minutos",
         days: ["MON", "WED", "FRI"],
         cost: 1500,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 5,
@@ -103,7 +109,8 @@ const ServicesList: Service[] = [
         duration: "90 minutos",
         days: ["TUE", "THU"],
         cost: 700,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 6,
@@ -118,7 +125,8 @@ const ServicesList: Service[] = [
         duration: "120 minutos",
         days: ["FRI"],
         cost: 1800,
-        comments: []
+        comments: [],
+        isPublished: false
     },
     {
         id: 7,
@@ -133,7 +141,8 @@ const ServicesList: Service[] = [
         duration: "180 minutos",
         days: ["SAT"],
         cost: 2000,
-        comments: []
+        comments: [],
+        isPublished: false
     },
     {
         id: 8,
@@ -148,7 +157,8 @@ const ServicesList: Service[] = [
         duration: "90 minutos",
         days: ["First Monday of the month"],
         cost: 1800,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 9,
@@ -163,7 +173,8 @@ const ServicesList: Service[] = [
         duration: "180 minutos",
         days: ["MON","TUE","WED","FRI"],
         cost: 2500,
-        comments: []
+        comments: [],
+        isPublished: true
     },
     {
         id: 10,
@@ -178,7 +189,8 @@ const ServicesList: Service[] = [
         duration: "90 minutos",
         days: ["TUE", "THU"],
         cost: 1200,
-        comments: []
+        comments: [],
+        isPublished: true
     }
 ];
 

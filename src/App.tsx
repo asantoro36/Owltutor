@@ -35,7 +35,7 @@ const theme = createTheme({
 });
 
 function App() {
-    const isAuthenticated = !!localStorage.getItem('token');
+    const isAuthenticated = localStorage.getItem('token') !== "";
     console.log(isAuthenticated)
     return (
         <ThemeProvider theme={theme}>
@@ -47,7 +47,7 @@ function App() {
                     <Route path="/create" element={<CreateAccount/>}/>
                     <Route path="/createCongrats" element={<Congrats/>}/>
                     <Route
-                        path={"/profile"}
+                        path="/profile"
                         element={isAuthenticated ? <Profile/> : <Navigate to="/login"/>}
                     />
                 </Routes>

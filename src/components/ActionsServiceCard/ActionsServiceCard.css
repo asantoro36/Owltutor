@@ -1,0 +1,14 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.service-action {
+    cursor: pointer;
+}
