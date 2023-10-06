@@ -2,7 +2,7 @@ import {Service} from "../entities/Service";
 
 export const saveService = (service: Service) => {
     let services = getFromLocalStorage()
-    service.id = ServicesList.length
+    service.id = services.length
     services.push(service)
     saveInLocalStorage(services)
 }
@@ -16,6 +16,13 @@ export const getServices = () => {
 
 export const getUserServices = (userId: string) => {
     return getFromLocalStorage().filter((service: Service) => service.responsibleId === userId)
+}
+
+export const updateService = (service: Service) => {
+    let savedServices = getFromLocalStorage();
+    const index = savedServices.findIndex((s: Service) => s.id === service.id)
+    savedServices[index] = service
+    saveInLocalStorage(savedServices)
 }
 
 const saveInLocalStorage = (services: Service[]) => {

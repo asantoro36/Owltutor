@@ -13,6 +13,8 @@ import {Service} from "../../entities/Service";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GradeIcon from '@mui/icons-material/Grade';
+import {updateService} from "../../controller/ServiceController";
+import {useState} from "react";
 
 interface ServiceCardProps {
     service: Service;
@@ -21,6 +23,7 @@ interface ServiceCardProps {
 export function ActionsServiceCard(props: ServiceCardProps) {
 
     const service = props.service
+    const [isPublished, setIsPublished] = useState(service.isPublished)
     const setType = (type: string) => {
         return type!=='INDIVIDUAL'? 'Grupal' : 'Individual';
     }
@@ -31,6 +34,12 @@ export function ActionsServiceCard(props: ServiceCardProps) {
         else if (frequency === 'WEEKLY')
             return 'Semanal'
         return 'Mensual'
+    }
+
+    const handlePublishButton = () => {
+        service.isPublished = !isPublished;
+        setIsPublished(!isPublished)
+        updateService(service)
     }
 
     return (
@@ -73,7 +82,7 @@ export function ActionsServiceCard(props: ServiceCardProps) {
                     <Divider/>
                     <div className="footer-content">
                         <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost}</Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
-                        <div className="contact-button">{!service.isPublished? "Publicar" : "Retirar"}</div>
+                        <div onClick={handlePublishButton} className="contact-button">{!isPublished? "Publicar" : "Retirar"}</div>
                     </div>
                 </div>
             </CardContent>
