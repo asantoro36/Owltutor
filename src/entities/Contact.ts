@@ -3,5 +3,5 @@ export interface IContact {
     phone: string,
     email: string,
     time: string,
-    comment: string,
+    message: string,
 }
