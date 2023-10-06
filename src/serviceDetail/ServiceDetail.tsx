@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
-import {getService} from "../controller/ServiceController";
+import {getService, updateService} from "../controller/ServiceController";
 import {Divider, Paper, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
@@ -16,7 +16,6 @@ import {days} from "../entities/Day";
 import GradeIcon from "@mui/icons-material/Grade";
 import Typography from "@mui/material/Typography";
 import {ContactDialog} from "../components/ContactDialog/ContactDialog";
-import ServiceCard from "../components/ServiceCard/ServiceCard";
 import {IComment} from "../entities/Comment";
 import {CommentPaper} from "../components/CommentPaper/CommentPaper";
 
@@ -37,6 +36,27 @@ export const ServiceDetail = () => {
         return selectedDays.join('-');
     }
 
+    const sendComment = () => {
+        service.comments.push({
+            id: 0,
+            text: newComment,
+            userId: userOwner?.mail,
+            date: getDate(),
+            status: "PENDING"
+        })
+        updateService(service)
+        setNewComment("")
+    }
+
+    const getDate = () => {
+        const fecha = new Date();
+
+        const day = String(fecha.getDate()).padStart(2, '0');
+        const month = String(fecha.getMonth() + 1).padStart(2, '0');
+        const year = fecha.getFullYear(); // Obtener el año
+
+        return `${day}/${month}/${year}`;
+    }
 
     return (
         <>
@@ -73,7 +93,7 @@ export const ServiceDetail = () => {
                 </div>
                 <div>
                     <h3>Comentarios:</h3>
-                    <div className={"comments-overflow"}>{service.comments.map((c: IComment) => <CommentPaper comment={c}/>)}</div>
+                    <div className={"comments-overflow"}>{service.comments.map((c: IComment) => c.status === "APPROVED" && <CommentPaper comment={c} updateComment={null}/>)}</div>
                 </div>
                 <div className={"add-comment-layout"}>
                     <TextField
@@ -86,7 +106,7 @@ export const ServiceDetail = () => {
                         onChange={(e) => setNewComment(e.target.value)}
                         required
                     />
-                    <div className={"button-secondary"}>Comentar</div>
+                    <div onClick={sendComment} className={"button-secondary"}>Comentar</div>
                 </div>
             </div>
             <ContactDialog open={open} setOpen={setOpen} service={service}/>

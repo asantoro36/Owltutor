@@ -4,6 +4,7 @@ import { Courses } from "../courses/Courses";
 import {Tab, Tabs} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {ContactsManager} from "./ContactsManager";
+import {CommentsManager} from "./CommentsManager";
 
 export const Profile = () => {
     const [value, setValue] = React.useState('one');
@@ -34,9 +35,7 @@ export const Profile = () => {
                         <ContactsManager/>
                     )}
                     {value === "three" && (
-                        <Typography component="div">
-                            Contenido de la pestaña tres
-                        </Typography>
+                        <CommentsManager/>
                     )}
                 </div>
             </div>
