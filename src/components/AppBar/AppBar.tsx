@@ -16,7 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {LogoutUser} from "../../controller/AuthController";
 import {getLoggedUser} from "../../controller/UserController";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [''];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -89,13 +89,12 @@ function ResponsiveAppBar() {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
+                            <div
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'black', display: 'block' }}
                             >
                                 {page}
-                            </Button>
+                            </div>
                         ))}
                     </Box>
 
