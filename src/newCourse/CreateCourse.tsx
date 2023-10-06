@@ -93,8 +93,6 @@ export const CreateCourse = () => {
     };
 
     const handleCreateButton = () => {
-
-        console.log(formData)
         if (formData.title === '' ||
             formData.category === '' ||
             formData.description === '' ||

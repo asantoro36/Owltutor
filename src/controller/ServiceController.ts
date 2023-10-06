@@ -25,6 +25,13 @@ export const updateService = (service: Service) => {
     saveInLocalStorage(savedServices)
 }
 
+export const removeService = (serviceId: number) => {
+    let savedServices = getFromLocalStorage();
+    const index = savedServices.findIndex((s: Service) => s.id === serviceId)
+    savedServices.splice(index, 1)
+    saveInLocalStorage(savedServices)
+}
+
 const saveInLocalStorage = (services: Service[]) => {
     try {
         const servicesJson = JSON.stringify(services);

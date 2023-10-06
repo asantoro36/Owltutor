@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import {ActionsServiceCard} from "../components/ActionsServiceCard/ActionsServiceCard";
 import "./Courses.css"
 import {useNavigate} from "react-router-dom";
-import {getServices, getUserServices} from "../controller/ServiceController";
+import {getServices, getUserServices, removeService} from "../controller/ServiceController";
 import {getLoggedUser} from "../controller/UserController";
 
 export const Courses = () => {
@@ -17,6 +17,11 @@ export const Courses = () => {
     useEffect(() => {
         setClasses(getUserServices(loggedUser?.mail || ""))
     }, []);
+
+    const handleDelete = (serviceId: number) => {
+        removeService(serviceId);
+        setClasses(getUserServices(loggedUser?.mail || ""));
+    }
 
     return(
         <div className="board">
@@ -31,7 +36,7 @@ export const Courses = () => {
                             <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para esta búsqueda</Typography>
                             :
                             classes.map((s: Service) => (
-                                <ActionsServiceCard service={s}/>
+                                <ActionsServiceCard service={s} handleDelete={handleDelete}/>
                             ))
                     }
                 </div>

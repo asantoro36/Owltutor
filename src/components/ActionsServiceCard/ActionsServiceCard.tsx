@@ -13,11 +13,12 @@ import {Service} from "../../entities/Service";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GradeIcon from '@mui/icons-material/Grade';
-import {updateService} from "../../controller/ServiceController";
+import {removeService, updateService} from "../../controller/ServiceController";
 import {useState} from "react";
 
 interface ServiceCardProps {
     service: Service;
+    handleDelete:any;
 }
 
 export function ActionsServiceCard(props: ServiceCardProps) {
@@ -49,7 +50,7 @@ export function ActionsServiceCard(props: ServiceCardProps) {
                     <span><Typography color="textPrimary" variant={"h5"}>{service.title}</Typography></span>
                     <div className={"actions-container"}>
                         <span onClick={() => {console.log("Edit")}} className={"service-action"}><EditIcon/></span>
-                        <span onClick={() => {console.log("Delete")}} className={"service-action"}><DeleteIcon/></span>
+                        <span onClick={() => {props.handleDelete(service.id)}} className={"service-action"}><DeleteIcon/></span>
                     </div>
                 </div>
                 <Divider/>
