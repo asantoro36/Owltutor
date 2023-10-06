@@ -9,9 +9,7 @@ interface CommentPaperProps {
 }
 export const CommentPaper = (props: CommentPaperProps) => {
     const {comment} = props
-    console.log(comment)
     const user = getUser(comment.userId);
-    console.log(user)
     return (
         <Paper elevation={5} className={"comment-container"} >
             <div className={"comment-username"}>{user?.name}</div>

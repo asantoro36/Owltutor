@@ -2,6 +2,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import React, {useEffect, useState} from "react";
 import {Service} from "../../entities/Service";
 import {updateService} from "../../controller/ServiceController";
+import {getContactId, saveContact, updateContact} from "../../controller/ContactController";
 
 interface ContactDialogProps {
     open: boolean,
@@ -32,15 +33,18 @@ export function ContactDialog(props: ContactDialogProps) {
     };
 
     const handleContact = () => {
-        service.contact.push({
+
+        saveContact({
             id: 0,
             name: formData.name,
             phone: formData.phone,
             email: formData.email,
             time: formData.time,
             message: formData.message,
+            serviceTitle: service.title,
+            status: 'PENDING',
+            ownerId: service.responsibleId
         })
-        updateService(service)
         handleClose()
     };
 

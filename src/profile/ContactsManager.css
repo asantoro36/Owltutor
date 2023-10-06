@@ -1,0 +1,31 @@
+.contact-container {
+    max-height: 400px;
+    margin: 10px;
+}
+
+.contact-header-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 2px 10px;
+}
+
+.contact-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 2px 10px;
+}
+
+.contact-buttons-container {
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 10px 10px 10px;
+}
+
+@media (orientation: landscape) {
+    .contact-buttons-container {
+        justify-content: flex-end;
+    }
+
+
+}

@@ -5,4 +5,7 @@ export interface IContact {
     email: string,
     time: string,
     message: string,
+    serviceTitle: string,
+    status: string,
+    ownerId: string
 }
