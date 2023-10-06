@@ -24,22 +24,22 @@ export const ServicesBoard = () => {
     return (
         <div className="board">
             <FilterProvider>
-                <div>
+                <div className={'filter-board-container'}>
                     <div id={'filter-bar'} className="side-filter-bar">
                         <Typography variant={"h6"} className="filter-title"><FilterListIcon/>Filtros</Typography>
                         <FilterBar services={classes} setFilteredServices={setFilteredClasses}/>
                     </div>
-                </div>
-                <div className={`card-container ${filteredClasses.length === 0? 'services-not-found' : 'columns'}`}>
-                    <span id={'expandable-filter-bar'}><ExpandableFilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
-                    {
-                        filteredClasses.length === 0?
-                            <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para esta búsqueda</Typography>
-                            :
-                        filteredClasses.map((s) => (
-                            s.isPublished && <ServiceCard service={s}/>
-                        ))
-                    }
+                    <div className={`card-container ${filteredClasses.length === 0? 'services-not-found' : 'columns'}`}>
+                        <span id={'expandable-filter-bar'}><ExpandableFilterBar services={classes} setFilteredServices={setFilteredClasses}/></span>
+                        {
+                            filteredClasses.length === 0?
+                                <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para esta búsqueda</Typography>
+                                :
+                            filteredClasses.map((s) => (
+                                s.isPublished && <ServiceCard service={s}/>
+                            ))
+                        }
+                    </div>
                 </div>
             </FilterProvider>
         </div>

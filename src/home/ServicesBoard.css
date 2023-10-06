@@ -3,8 +3,10 @@
     margin: 20px auto;
     padding-left: 24px;
     padding-right: 24px;
+}
+
+.filter-board-container {
     display: flex;
-    align-content: center;
     justify-content: center;
 }
 
@@ -51,7 +53,7 @@
 }
 
 .services-not-found {
-    align-items: center;
-    align-content: center;
+    display: flex;
+    justify-content: center;
     grid-column: 1;
 }

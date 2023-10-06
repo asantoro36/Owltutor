@@ -4,6 +4,6 @@ interface IType {
 }
 
 export const types: IType[] = [
-    {id: 'UNIQUE', name: "Individual"},
+    {id: 'INDIVIDUAL', name: "Individual"},
     {id: 'GROUP', name: "Grupal"},
 ]

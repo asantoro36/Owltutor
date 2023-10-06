@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import GradeIcon from '@mui/icons-material/Grade';
 import {removeService, updateService} from "../../controller/ServiceController";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useServiceContext} from "../../editCourse/CourseContext";
 
 interface ServiceCardProps {
     service: Service;
@@ -23,6 +25,8 @@ interface ServiceCardProps {
 
 export function ActionsServiceCard(props: ServiceCardProps) {
 
+    const {setServiceToEdit} = useServiceContext()
+    const navigate = useNavigate()
     const service = props.service
     const [isPublished, setIsPublished] = useState(service.isPublished)
     const setType = (type: string) => {
@@ -30,6 +34,7 @@ export function ActionsServiceCard(props: ServiceCardProps) {
     }
 
     const setFrequency = (frequency: string) => {
+        console.log(frequency)
         if(frequency === 'UNIQUE')
             return "Única"
         else if (frequency === 'WEEKLY')
@@ -43,13 +48,18 @@ export function ActionsServiceCard(props: ServiceCardProps) {
         updateService(service)
     }
 
+    const handleEdit = () => {
+        setServiceToEdit(service)
+        navigate("/editCourse")
+    }
+
     return (
         <Card sx={{ maxWidth: 400, maxHeight: 500 }} elevation={8}>
             <CardContent className="card-content">
                 <div className={"header-container"}>
                     <span><Typography color="textPrimary" variant={"h5"}>{service.title}</Typography></span>
                     <div className={"actions-container"}>
-                        <span onClick={() => {console.log("Edit")}} className={"service-action"}><EditIcon/></span>
+                        <span onClick={() => {handleEdit()}} className={"service-action"}><EditIcon/></span>
                         <span onClick={() => {props.handleDelete(service.id)}} className={"service-action"}><DeleteIcon/></span>
                     </div>
                 </div>

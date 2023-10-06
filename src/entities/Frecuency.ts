@@ -4,7 +4,7 @@ interface IFrecuency {
 }
 
 export const frecuencies: IFrecuency[] = [
-    {id: 'DAILY', name: "Diaria"},
+    {id: 'UNIQUE', name: "Única"},
     {id: 'WEEKLY', name: "Semanal"},
     {id: 'MONTHLY', name: "Mensual"},
 ]
