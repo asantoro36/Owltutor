@@ -32,6 +32,11 @@ export const removeService = (serviceId: number) => {
     saveInLocalStorage(savedServices)
 }
 
+export const getService = (serviceId: number) => {
+    let savedServices = getFromLocalStorage();
+    return savedServices.find((s: Service) => s.id === serviceId)
+}
+
 const saveInLocalStorage = (services: Service[]) => {
     try {
         const servicesJson = JSON.stringify(services);
@@ -43,9 +48,9 @@ const saveInLocalStorage = (services: Service[]) => {
 
 const getFromLocalStorage = () => {
     try {
-        const serviciosJson = localStorage.getItem("services");
-        if (serviciosJson) {
-            return JSON.parse(serviciosJson);
+        const servicesJson = localStorage.getItem("services");
+        if (servicesJson) {
+            return JSON.parse(servicesJson);
         } else {
             return [];
         }

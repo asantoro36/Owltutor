@@ -13,6 +13,8 @@ import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import GradeIcon from '@mui/icons-material/Grade';
 import {ContactDialog} from "../ContactDialog/ContactDialog";
+import {useNavigate} from "react-router-dom";
+import {useServiceContext} from "../../editCourse/CourseContext";
 
 interface ServiceCardProps {
     service: Service;
@@ -20,6 +22,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard(props: ServiceCardProps) {
 
+    const navigate = useNavigate()
     const [open, setOpen] = React.useState(false);
     const service = props.service
     const setType = (type: string) => {
@@ -34,10 +37,14 @@ export default function ServiceCard(props: ServiceCardProps) {
         return 'Mensual'
     }
 
+    const handleCardClicked = () => {
+        navigate("/service/" + service.id)
+    }
+
     return (
         <Card sx={{ maxWidth: 400, maxHeight: 500 }} elevation={8}>
             <CardContent className="card-content">
-                <div className="card-description">
+                <div className="card-description" onClick={handleCardClicked}>
                     <div>
                         <Typography color="textPrimary" variant={"h5"}>{service.title}</Typography>
                         <Typography style={{minHeight: 48}}color="textSecondary">{service.description}</Typography>

@@ -20,9 +20,6 @@ export function ContactDialog(props: ContactDialogProps) {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-    </Button>
     <Dialog open={open}>
         <DialogTitle>{service.title}</DialogTitle>
         <DialogContent>

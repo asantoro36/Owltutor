@@ -1,0 +1,31 @@
+.title-detail {
+    padding-bottom: 5px;
+}
+
+.detail-board {
+    max-width: 900px;
+}
+
+.detail-center-layout {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    align-items: center;
+}
+
+.detail-left-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.detail-right-layout {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.detail-price {
+    font-size: 30px;
+}

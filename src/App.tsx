@@ -11,6 +11,7 @@ import {Profile} from "./profile/Profile";
 import {CreateCourse} from "./newCourse/CreateCourse";
 import {EditCourse} from "./editCourse/EditCourse";
 import {ServiceProvider} from "./editCourse/CourseContext";
+import {ServiceDetail} from "./serviceDetail/ServiceDetail";
 
 const theme = createTheme({
     palette: {
@@ -49,6 +50,7 @@ function App() {
                         <Route path="/password_recover" element={<PasswordRecover/>}/>
                         <Route path="/create" element={<CreateAccount/>}/>
                         <Route path="/createCongrats" element={<Congrats/>}/>
+                        <Route path="/service/:id" element={<ServiceDetail/>}/>
                         <Route
                             path="/profile"
                             element={isAuthenticated ? <Profile/> : <Navigate to="/login"/>}
