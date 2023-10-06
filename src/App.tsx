@@ -8,6 +8,7 @@ import {PasswordRecover} from "./passwordRecover/PasswordRecover";
 import {CreateAccount} from "./createAccount/CreateAccount";
 import {Congrats} from "./login/Congrats";
 import {Profile} from "./profile/Profile";
+import {CreateCourse} from "./newCourse/CreateCourse";
 
 const theme = createTheme({
     palette: {
@@ -36,7 +37,6 @@ const theme = createTheme({
 
 function App() {
     const isAuthenticated = localStorage.getItem('token') !== "";
-    console.log(isAuthenticated)
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
@@ -49,6 +49,10 @@ function App() {
                     <Route
                         path="/profile"
                         element={isAuthenticated ? <Profile/> : <Navigate to="/login"/>}
+                    />
+                    <Route
+                        path="/newCourse"
+                        element={isAuthenticated ? <CreateCourse/> : <Navigate to="/login"/>}
                     />
                 </Routes>
             </BrowserRouter>

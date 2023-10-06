@@ -20,7 +20,7 @@ export const Courses = () => {
             <div>
                 <div className={'courses-header'}>
                     <h2>Tus publicaciones</h2>
-                    <span onClick={() => { navigate("") }} className={"contact-button"}>Nueva publicación</span>
+                    <span onClick={() => { navigate("/newCourse") }} className={"contact-button"}>Nueva publicación</span>
                 </div>
                 <div className={`card-container ${classes.length === 0? 'services-not-found' : 'columns'}`}>
                     {
