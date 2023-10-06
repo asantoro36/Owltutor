@@ -5,15 +5,17 @@ import Typography from "@mui/material/Typography";
 import {ActionsServiceCard} from "../components/ActionsServiceCard/ActionsServiceCard";
 import "./Courses.css"
 import {useNavigate} from "react-router-dom";
-import {getServices} from "../controller/ServiceController";
+import {getServices, getUserServices} from "../controller/ServiceController";
+import {getLoggedUser} from "../controller/UserController";
 
 export const Courses = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const navigate = useNavigate();
+    const loggedUser = getLoggedUser()
 
     useEffect(() => {
-        setClasses(getServices)
+        setClasses(getUserServices(loggedUser?.mail || ""))
     }, []);
 
     return(

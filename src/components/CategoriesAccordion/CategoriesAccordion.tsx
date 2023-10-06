@@ -2,14 +2,11 @@ import {Accordion, AccordionDetails, AccordionSummary, FormControlLabel, Radio, 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import {useState} from "react";
 import {categories} from "../../entities/Categories";
 
 
 
 export const CategoriesAccordion = ({ categorySelected, setCategorySelected }: any) => {
-
-
 
     const handleCategorySelectedOnChange = (value: string) => {
         setCategorySelected(parseInt(value))

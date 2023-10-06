@@ -1,12 +1,9 @@
 import * as React from 'react';
 import "./FilterBar.css"
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
     Checkbox, Divider,
     FormControlLabel,
-    FormGroup, Radio, RadioGroup, Slider,
+    FormGroup, Slider,
     Stack
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -98,10 +95,6 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
     const handleSliderChange = (event: any, newValue: any) => {
         setSliderValue(newValue);
     };
-
-    const handleCategorySelectedOnChange = (value: string) => {
-        setCategorySelected(parseInt(value))
-    }
 
     useEffect(() => {
         applyFilters(CATEGORY, categorySelected >= 0);

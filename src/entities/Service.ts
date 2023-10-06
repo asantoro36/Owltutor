@@ -6,6 +6,7 @@ export interface Service {
     type: string; // Puede ser 'Individual' o 'Grupal'
     frequency: string; // Puede ser 'única', 'semanal', o 'mensual'
     rating: number;
+    responsibleId: string,
     responsible: string;
     responsibleExperience: string,
     duration: string;

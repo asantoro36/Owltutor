@@ -1,4 +1,4 @@
-import {FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup} from "@mui/material";
+import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import React from "react";
 
 export const RadioSelector = ({ label, selectorName, options, setSelectedOption }: { label: string, selectorName: string, options: any[], setSelectedOption: any }) => {

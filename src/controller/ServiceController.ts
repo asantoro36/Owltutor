@@ -1,13 +1,45 @@
 import {Service} from "../entities/Service";
 
 export const saveService = (service: Service) => {
+    let services = getFromLocalStorage()
     service.id = ServicesList.length
-    ServicesList.push(service)
+    services.push(service)
+    saveInLocalStorage(services)
 }
 
 export const getServices = () => {
-    return ServicesList
+    if(localStorage.getItem("services")===null) {
+        saveInLocalStorage(ServicesList)
+    }
+    return getFromLocalStorage()
 }
+
+export const getUserServices = (userId: string) => {
+    return getFromLocalStorage().filter((service: Service) => service.responsibleId === userId)
+}
+
+const saveInLocalStorage = (services: Service[]) => {
+    try {
+        const servicesJson = JSON.stringify(services);
+        localStorage.setItem("services", servicesJson);
+    } catch (error) {
+        console.error('Error al guardar la lista de servicios en localStorage:', error);
+    }
+};
+
+const getFromLocalStorage = () => {
+    try {
+        const serviciosJson = localStorage.getItem("services");
+        if (serviciosJson) {
+            return JSON.parse(serviciosJson);
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error('Error al obtener la lista de servicios desde localStorage:', error);
+        return [];
+    }
+};
 
 const ServicesList: Service[] = [
     {
@@ -18,6 +50,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "WEEKLY",
         rating: 4.5,
+        responsibleId: "AnaFonseca@email.com",
         responsible: "Ana Fonseca",
         responsibleExperience: "Soy Ana, y tengo un título en Educación Matemática y más de 10 años de experiencia enseñando matemáticas en escuelas locales. He ayudado a cientos de estudiantes a mejorar sus habilidades matemáticas y alcanzar el éxito académico.",
         duration: "60 minutos",
@@ -34,6 +67,7 @@ const ServicesList: Service[] = [
         type: "GROUP",
         frequency: "WEEKLY",
         rating: 4.8,
+        responsibleId: "David@email.com",
         responsible: "David English",
         responsibleExperience: "Profesor de inglés certificado con 8 años de experiencia. He enseñado en escuelas de idiomas y he trabajado con empresas internacionales, ayudando a mis estudiantes a dominar el inglés y alcanzar sus metas comunicativas.",
         duration: "90 minutos",
@@ -50,6 +84,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "WEEKLY",
         rating: 4.9,
+        responsibleId: "elena@email.com",
         responsible: "Elena Vargas",
         responsibleExperience: "Soy Elena, una pianista profesional con más de 15 años de experiencia en la interpretación y la enseñanza de piano. Tengo un grado en Música y he actuado en conciertos internacionales, compartiendo mi pasión por la música con mis estudiantes.",
         duration: "45 minutos",
@@ -66,6 +101,7 @@ const ServicesList: Service[] = [
         type: "GROUP",
         frequency: "WEEKLY",
         rating: 4.7,
+        responsibleId: "carlos@email.com",
         responsible: "Carlos Romero",
         responsibleExperience: "Soy Carlos, un bailarín y coreógrafo de salsa con renombre internacional. He trabajado como instructor de baile en prestigiosas academias y he coreografiado espectáculos en todo el mundo. Mi pasión por la salsa es contagiosa y la comparto en cada clase.",
         duration: "60 minutos",
@@ -82,6 +118,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "WEEKLY",
         rating: 4.6,
+        responsibleId: "maria@email.com",
         responsible: "María Sanchez",
         responsibleExperience: "Soy María, una entrenadora certificada en fitness con más de 7 años de experiencia. He trabajado con atletas de alto rendimiento y personas de todas las edades para ayudarles a alcanzar sus objetivos de salud y bienestar. Mi enfoque es personalizado y orientado a resultados.",
         duration: "75 minutos",
@@ -98,6 +135,7 @@ const ServicesList: Service[] = [
         type: "GROUP",
         frequency: "WEEKLY",
         rating: 4.4,
+        responsibleId: "david@email.com",
         responsible: "Juan Perez",
         responsibleExperience: "Soy Juan, un extenista profesional con una amplia trayectoria en el circuito internacional. Además de mi experiencia en competencias, tengo más de 5 años de experiencia como entrenador de tenis, ayudando a mis estudiantes a mejorar su juego y disfrutar del tenis.",
         duration: "90 minutos",
@@ -114,6 +152,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "UNIQUE",
         rating: 4.9,
+        responsibleId: "luis@email.com",
         responsible: "Luis Gonzales",
         responsibleExperience: "Soy Luis, un diseñador gráfico con más de 12 años de experiencia en branding y diseño de logotipos. He trabajado con empresas de renombre y startups para crear identidades visuales sólidas y atractivas.",
         duration: "120 minutos",
@@ -130,6 +169,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "UNIQUE",
         rating: 1.8,
+        responsibleId: "laura@email.com",
         responsible: "Laura Linas",
         responsibleExperience: "Soy Laura, una desarrolladora web con más de 8 años de experiencia en proyectos personalizados. He trabajado con empresas de diversos sectores y he entregado soluciones web de alta calidad y rendimiento.",
         duration: "180 minutos",
@@ -146,6 +186,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "MONTHLY",
         rating: 4.7,
+        responsibleId: "javie@email.com",
         responsible: "Javier Toledo",
         responsibleExperience: "Soy Javier, un asesor financiero con más de 15 años de experiencia en instituciones bancarias de renombre. He ayudado a individuos y familias a alcanzar sus metas financieras a través de estrategias de inversión y planificación fiscal personalizadas.",
         duration: "90 minutos",
@@ -162,6 +203,7 @@ const ServicesList: Service[] = [
         type: "INDIVIDUAL",
         frequency: "UNIQUE",
         rating: 4.1,
+        responsibleId: "eva@email.com",
         responsible: "Eva Zamora",
         responsibleExperience: "Soy Eva, una diseñadora de interiores con una sólida formación y más de 10 años de experiencia en diseño residencial. He trabajado en proyectos de viviendas y apartamentos de lujo, creando ambientes que reflejan la personalidad y las necesidades de mis clientes.",
         duration: "180 minutos",
@@ -178,6 +220,7 @@ const ServicesList: Service[] = [
         type: "GROUP",
         frequency: "WEEKLY",
         rating: 2.6,
+        responsibleId: "marta@email.com",
         responsible: "Marta Alvarez",
         responsibleExperience: "Soy Marta, una experta en marketing digital con una amplia trayectoria en agencias de marketing y startups exitosas. Durante los últimos 7 años, he dirigido campañas exitosas en línea y he ayudado a empresas a aumentar su presencia digital y sus ventas.",
         duration: "90 minutos",

@@ -14,11 +14,11 @@ export const ServicesBoard = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
-    const servicesList = getServices()
+    const ServicesList = getServices()
 
     useEffect(() => {
-        setClasses(servicesList)
-        setFilteredClasses(servicesList);
+        setClasses(ServicesList)
+        setFilteredClasses(ServicesList);
     }, []);
 
     return (
@@ -37,7 +37,7 @@ export const ServicesBoard = () => {
                             <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para esta búsqueda</Typography>
                             :
                         filteredClasses.map((s) => (
-                            <ServiceCard service={s}/>
+                            s.isPublished && <ServiceCard service={s}/>
                         ))
                     }
                 </div>
