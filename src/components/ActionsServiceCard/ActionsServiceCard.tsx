@@ -34,7 +34,6 @@ export function ActionsServiceCard(props: ServiceCardProps) {
     }
 
     const setFrequency = (frequency: string) => {
-        console.log(frequency)
         if(frequency === 'UNIQUE')
             return "Única"
         else if (frequency === 'WEEKLY')

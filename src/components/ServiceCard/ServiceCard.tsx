@@ -12,6 +12,7 @@ import {Service} from "../../entities/Service";
 import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import GradeIcon from '@mui/icons-material/Grade';
+import {ContactDialog} from "../ContactDialog/ContactDialog";
 
 interface ServiceCardProps {
     service: Service;
@@ -19,6 +20,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard(props: ServiceCardProps) {
 
+    const [open, setOpen] = React.useState(false);
     const service = props.service
     const setType = (type: string) => {
         return type!=='INDIVIDUAL'? 'Grupal' : 'Individual';
@@ -72,10 +74,11 @@ export default function ServiceCard(props: ServiceCardProps) {
                     <Divider/>
                     <div className="footer-content">
                             <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost}</Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
-                            <div className="contact-button">Contactar</div>
+                            <div onClick={() => setOpen(!open) } className="contact-button">Contactar</div>
                     </div>
                 </div>
             </CardContent>
+            <ContactDialog open={open} setOpen={setOpen} service={service}/>
         </Card>
     );
 }

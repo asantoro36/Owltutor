@@ -79,7 +79,6 @@ export const CourseForm = (props: CourseFormInterface) => {
     };
 
     const handleCreateButton = () => {
-        console.log(serviceToEdit)
         if (formData.title === '' ||
             formData.category === '' ||
             formData.description === '' ||
