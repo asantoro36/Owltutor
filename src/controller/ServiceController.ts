@@ -75,7 +75,19 @@ const ServicesList: Service[] = [
         duration: "60 minutos",
         days: ["MON", "WED"],
         cost: 800,
-        comments: [],
+        comments: [{id: 0,
+                    text: "comentario",
+                    userId: "email@email.com",
+                    date: "06/10/2023"},
+            {id: 1,
+                text: "comentario",
+                userId: "email@email.com",
+                date: "06/10/2023",},
+            {id: 2,
+                text: "comentario",
+                userId: "email@email.com",
+                date: "06/10/2023",}],
+        contact: [],
         isPublished: true
     },
     {
@@ -93,6 +105,7 @@ const ServicesList: Service[] = [
         days: ["TUE", "THU"],
         cost: 600,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -110,6 +123,7 @@ const ServicesList: Service[] = [
         days: ["FRI"],
         cost: 1200,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -127,6 +141,7 @@ const ServicesList: Service[] = [
         days: ["SAT"],
         cost: 1000,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -144,6 +159,7 @@ const ServicesList: Service[] = [
         days: ["MON", "WED", "FRI"],
         cost: 1500,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -161,6 +177,7 @@ const ServicesList: Service[] = [
         days: ["TUE", "THU"],
         cost: 700,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -178,6 +195,7 @@ const ServicesList: Service[] = [
         days: ["FRI"],
         cost: 1800,
         comments: [],
+        contact: [],
         isPublished: false
     },
     {
@@ -195,6 +213,7 @@ const ServicesList: Service[] = [
         days: ["SAT"],
         cost: 2000,
         comments: [],
+        contact: [],
         isPublished: false
     },
     {
@@ -212,6 +231,7 @@ const ServicesList: Service[] = [
         days: ["First Monday of the month"],
         cost: 1800,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -229,6 +249,7 @@ const ServicesList: Service[] = [
         days: ["MON","TUE","WED","FRI"],
         cost: 2500,
         comments: [],
+        contact: [],
         isPublished: true
     },
     {
@@ -246,6 +267,7 @@ const ServicesList: Service[] = [
         days: ["TUE", "THU"],
         cost: 1200,
         comments: [],
+        contact: [],
         isPublished: true
     }
 ];

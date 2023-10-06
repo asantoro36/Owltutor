@@ -1,0 +1,16 @@
+.comment-container {
+    height: 100px;
+    margin: 10px;
+}
+
+.comment-username {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding-top: 2px;
+}
+
+.comment-text {
+    margin: 10px;
+}

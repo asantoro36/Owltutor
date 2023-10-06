@@ -115,6 +115,7 @@ export const CourseForm = (props: CourseFormInterface) => {
             days: formData.days,
             cost: formData.cost,
             comments: isEditing? serviceToEdit.comments : [],
+            contact: isEditing? serviceToEdit.contact : [],
             isPublished: isEditing? serviceToEdit.isPublished : false,
         };
     };

@@ -1,3 +1,6 @@
+import {IComment} from "./Comment";
+import {IContact} from "./Contact";
+
 export interface Service {
     id: number;
     title: string;
@@ -12,7 +15,8 @@ export interface Service {
     duration: string;
     days: string[],
     cost: number;
-    comments: string[];
+    comments: IComment[];
+    contact: IContact[];
     isPublished: boolean;
 }
 

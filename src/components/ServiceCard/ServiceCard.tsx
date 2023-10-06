@@ -80,8 +80,8 @@ export default function ServiceCard(props: ServiceCardProps) {
                 <div className="card-footer">
                     <Divider/>
                     <div className="footer-content">
-                            <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost}</Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
-                            <div onClick={() => setOpen(!open) } className="contact-button">Contactar</div>
+                        <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost}</Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
+                        <div onClick={() => setOpen(!open) } className="contact-button">Contactar</div>
                     </div>
                 </div>
             </CardContent>

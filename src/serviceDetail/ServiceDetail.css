@@ -29,3 +29,16 @@
 .detail-price {
     font-size: 30px;
 }
+
+.add-comment-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.comments-overflow {
+    height: 300px;
+    overflow: auto;
+    border: 1px solid #ebebeb;
+}

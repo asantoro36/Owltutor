@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
 import {getService} from "../controller/ServiceController";
-import {Divider} from "@mui/material";
+import {Divider, Paper, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
 import {getUser} from "../controller/UserController";
@@ -16,10 +16,14 @@ import {days} from "../entities/Day";
 import GradeIcon from "@mui/icons-material/Grade";
 import Typography from "@mui/material/Typography";
 import {ContactDialog} from "../components/ContactDialog/ContactDialog";
+import ServiceCard from "../components/ServiceCard/ServiceCard";
+import {IComment} from "../entities/Comment";
+import {CommentPaper} from "../components/CommentPaper/CommentPaper";
 
 export const ServiceDetail = () => {
 
     const [open, setOpen] = React.useState(false);
+    const [newComment, setNewComment] = React.useState("");
     const { id } = useParams();
     const service = getService(parseInt(String(id ? parseInt(id) : -1)))
     const userOwner = getUser(service.responsibleId)
@@ -32,6 +36,7 @@ export const ServiceDetail = () => {
 
         return selectedDays.join('-');
     }
+
 
     return (
         <>
@@ -65,7 +70,23 @@ export const ServiceDetail = () => {
                     <div className={"detail-right-layout"}>
                         <div onClick={() => setOpen(!open) } className="contact-button">Contactar</div>
                     </div>
-
+                </div>
+                <div>
+                    <h3>Comentarios:</h3>
+                    <div className={"comments-overflow"}>{service.comments.map((c: IComment) => <CommentPaper comment={c}/>)}</div>
+                </div>
+                <div className={"add-comment-layout"}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        label="Deja un comentario"
+                        name="newComment"
+                        value={newComment}
+                        fullWidth
+                        onChange={(e) => setNewComment(e.target.value)}
+                        required
+                    />
+                    <div className={"button-secondary"}>Comentar</div>
                 </div>
             </div>
             <ContactDialog open={open} setOpen={setOpen} service={service}/>
