@@ -16,6 +16,7 @@ export function ContactDialog(props: ContactDialogProps) {
         email: '',
         time: '',
         message: '',
+        name: ''
     });
 
     const handleInputChange = (event: any) => {
@@ -33,10 +34,11 @@ export function ContactDialog(props: ContactDialogProps) {
     const handleContact = () => {
         service.contact.push({
             id: 0,
+            name: formData.name,
             phone: formData.phone,
             email: formData.email,
             time: formData.time,
-            message: formData.message
+            message: formData.message,
         })
         updateService(service)
         handleClose()
@@ -50,6 +52,15 @@ export function ContactDialog(props: ContactDialogProps) {
         <DialogContentText>
             Para contactar al profesor, por favor proporcionanos tu teléfono, email, horario de contacto y cualquier comentario adicional. Gracias!
         </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    name="name"
+                    label="Nombre"
+                    fullWidth
+                    variant="standard"
+                    onChange={handleInputChange}
+                />
                 <TextField
                     autoFocus
                     margin="dense"
