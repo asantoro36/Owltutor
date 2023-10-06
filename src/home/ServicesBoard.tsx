@@ -2,21 +2,23 @@ import ServiceCard from "../components/ServiceCard/ServiceCard";
 import "./ServicesBoard.css";
 import {useEffect, useState} from "react";
 import {FilterBar} from "../components/FilterBar/FilterBar";
-import {Service, ServicesList} from "../entities/Service";
+import {Service} from "../entities/Service";
 import {ExpandableFilterBar} from "../components/FilterBar/ExpandableFilterBar";
 import {FilterProvider} from "../components/FilterBar/FilterContext";
 import Typography from "@mui/material/Typography";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import * as React from "react";
+import {getServices} from "../controller/ServiceController";
 
 export const ServicesBoard = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
+    const servicesList = getServices()
 
     useEffect(() => {
-        setClasses(ServicesList)
-        setFilteredClasses(ServicesList);
+        setClasses(servicesList)
+        setFilteredClasses(servicesList);
     }, []);
 
     return (

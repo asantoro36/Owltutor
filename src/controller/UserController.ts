@@ -13,7 +13,6 @@ export const createUser = (userForm: User) => {
     };
 
     const userDataJSON = JSON.stringify(userData);
-    console.log(userDataJSON)
     localStorage.setItem(userForm.mail, userDataJSON)
 }
 

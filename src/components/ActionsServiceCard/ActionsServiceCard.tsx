@@ -72,7 +72,7 @@ export function ActionsServiceCard(props: ServiceCardProps) {
                 <div className="card-footer">
                     <Divider/>
                     <div className="footer-content">
-                        <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost} </Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
+                        <span style={{display: 'flex'}}><Typography variant="h5"> ${service.cost}</Typography><Typography className="cost-info" color="textSecondary"> p/clase</Typography></span>
                         <div className="contact-button">{!service.isPublished? "Publicar" : "Retirar"}</div>
                     </div>
                 </div>

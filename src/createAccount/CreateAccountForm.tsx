@@ -75,7 +75,7 @@ export const CreateAccountForm = () => {
     }
 
     return(
-        <div className="login-form">
+        <div className="create-account-form login-form">
             <h3 className={"title-form"}>Crear cuenta</h3>
             <div className={"login-input-form"}>
                 {!canContinue?

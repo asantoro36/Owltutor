@@ -2,14 +2,10 @@ import React, {useState} from "react";
 import AppBar from "../components/AppBar/AppBar";
 import {
     Checkbox,
-    FormControl,
     FormControlLabel,
     FormGroup,
-    FormLabel,
     InputLabel,
     MenuItem,
-    Radio,
-    RadioGroup,
     Select,
     TextField
 } from "@mui/material";
@@ -22,6 +18,8 @@ import Typography from "@mui/material/Typography";
 import "./CreateCourse.css"
 import {saveService} from "../controller/ServiceController";
 import {useNavigate} from "react-router-dom";
+import {getLoggedUser} from "../controller/UserController";
+import {Service} from "../entities/Service";
 
 interface FormData {
     title: string;
@@ -36,6 +34,8 @@ interface FormData {
 
 export const CreateCourse = () => {
 
+    const navigate = useNavigate()
+    const loggedUser = getLoggedUser()
     const [hideError, setHideError] = useState(true);
     const [formData, setFormData] = useState<FormData>({
         title: '',
@@ -47,7 +47,25 @@ export const CreateCourse = () => {
         days: [],
         cost: '', // Cambiado a false para que sea booleano en lugar de un número
     });
-    const navigate = useNavigate()
+
+    const parseFormDataToService = (formData: any): Service => {
+        return {
+            id: -1,
+            title: formData.title,
+            category: formData.category,
+            description: formData.description,
+            type: formData.type,
+            frequency: formData.frequency + " minutos",
+            rating: 0,
+            responsible: loggedUser?.name + " " + loggedUser?.surname, //TODO hacer que agregue el id del usuario y luego busque info
+            responsibleExperience: loggedUser?.experience || "",
+            duration: formData.duration,
+            days: formData.days,
+            cost: formData.cost,
+            comments: [],
+            isPublished: false,
+        };
+    };
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -55,8 +73,6 @@ export const CreateCourse = () => {
             ...formData,
             [name]: value,
         });
-        console.log(name)
-        console.log(formData.type)
     };
 
     const handleDaysInputChange = (event: any) => {
@@ -77,6 +93,7 @@ export const CreateCourse = () => {
 
     const handleCreateButton = () => {
 
+        console.log(formData)
         if (formData.title === '' ||
             formData.category === '' ||
             formData.description === '' ||
@@ -88,7 +105,7 @@ export const CreateCourse = () => {
 
             setHideError(false);
         } else {
-            saveService()
+            saveService(parseFormDataToService(formData))
             navigate("/profile")
         }
     }
@@ -129,7 +146,7 @@ export const CreateCourse = () => {
                     </Select>
 
                     <RadioSelector label={"Tipo:"} selectorName={"type"} options={types} setSelectedOption={handleInputChange} />
-                    <RadioSelector label={"Frecuencia:"} selectorName={"frecuency"} options={frecuencies} setSelectedOption={handleInputChange} />
+                    <RadioSelector label={"Frecuencia:"} selectorName={"frequency"} options={frecuencies} setSelectedOption={handleInputChange} />
                     <TextField
                         variant="filled"
                         margin="normal"

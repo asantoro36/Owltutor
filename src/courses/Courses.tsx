@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
-import {Service, ServicesList} from "../entities/Service";
+import {Service} from "../entities/Service";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import {ActionsServiceCard} from "../components/ActionsServiceCard/ActionsServiceCard";
 import "./Courses.css"
 import {useNavigate} from "react-router-dom";
+import {getServices} from "../controller/ServiceController";
 
 export const Courses = () => {
 
@@ -12,7 +13,7 @@ export const Courses = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setClasses(ServicesList)
+        setClasses(getServices)
     }, []);
 
     return(
