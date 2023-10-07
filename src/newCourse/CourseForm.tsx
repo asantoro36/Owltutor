@@ -111,6 +111,7 @@ export const CourseForm = (props: CourseFormInterface) => {
             responsibleId: loggedUser?.mail || "",
             responsible: loggedUser?.name + " " + loggedUser?.surname, //TODO hacer que agregue el id del usuario y luego busque info
             responsibleExperience: loggedUser?.experience || "",
+            responsiblePhotoUrl: loggedUser?.photoUrl || "#F453L3",
             duration: formData.duration + (isEditing? "" :" minutos"),
             days: formData.days,
             cost: formData.cost,

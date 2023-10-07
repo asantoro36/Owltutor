@@ -1,0 +1,9 @@
+.detail-right-layout {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.detail-right-layout-button {
+    margin-top: 0px;
+}

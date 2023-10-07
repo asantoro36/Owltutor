@@ -1,4 +1,5 @@
 import {User} from "../entities/User";
+import {Service} from "../entities/Service";
 
 export const createUser = (userForm: User) => {
     const userData = {
@@ -15,6 +16,8 @@ export const createUser = (userForm: User) => {
     const userDataJSON = JSON.stringify(userData);
     localStorage.setItem(userForm.mail, userDataJSON)
 }
+
+
 
 export const updatePassword = (userEmail: string, newPassword: string) => {
     const userDataJSON = localStorage.getItem(userEmail);

@@ -12,6 +12,7 @@ export interface Service {
     responsibleId: string,
     responsible: string;
     responsibleExperience: string,
+    responsiblePhotoUrl: string,
     duration: string;
     days: string[],
     cost: number;

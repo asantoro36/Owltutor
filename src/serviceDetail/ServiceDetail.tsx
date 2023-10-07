@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
 import {getService, updateService} from "../controller/ServiceController";
-import {Divider, Paper, TextField} from "@mui/material";
+import {Divider, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
 import {getUser} from "../controller/UserController";
@@ -64,7 +64,7 @@ export const ServiceDetail = () => {
             <div className={"detail-board board"}>
                 <h1>{service.title}</h1>
                 <div className={"title-detail appbar-userinfo-container"}>
-                    <Avatar alt="" sx={{ bgcolor: userOwner?.photoUrl}}>{userOwner?.name.charAt(0)}{userOwner?.surname.charAt(0)}</Avatar>
+                    <Avatar alt="" sx={{ bgcolor: userOwner?.photoUrl}}>{userOwner?.name.charAt(0)}</Avatar>
                     <div>{userOwner?.name} {userOwner?.surname}</div>
                 </div>
                 <Divider/>

@@ -15,6 +15,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import {ContactDialog} from "../ContactDialog/ContactDialog";
 import {useNavigate} from "react-router-dom";
 import {useServiceContext} from "../../editCourse/CourseContext";
+import {getLoggedUser, getUser} from "../../controller/UserController";
 
 interface ServiceCardProps {
     service: Service;
@@ -25,6 +26,7 @@ export default function ServiceCard(props: ServiceCardProps) {
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false);
     const service = props.service
+    const ownerUser = getUser(service.responsibleId)
     const setType = (type: string) => {
         return type!=='INDIVIDUAL'? 'Grupal' : 'Individual';
     }
@@ -71,7 +73,7 @@ export default function ServiceCard(props: ServiceCardProps) {
                     </div>
                     <div>
                         <div className={'responsible-name'}>
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">R</Avatar>
+                            <Avatar sx={{ bgcolor: service.responsiblePhotoUrl }} aria-label="recipe">{ownerUser ? ownerUser.name.charAt(0): service.responsible.charAt(0)}</Avatar>
                             <Typography variant="body2" color="text.secondary">{service.responsible}</Typography>
                         </div>
                         <Typography variant="body2" color="text.secondary">{service.responsibleExperience}</Typography>

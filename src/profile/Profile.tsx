@@ -5,6 +5,7 @@ import {Tab, Tabs} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {ContactsManager} from "./ContactsManager";
 import {CommentsManager} from "./CommentsManager";
+import {UserData} from "./UserData";
 
 export const Profile = () => {
     const [value, setValue] = React.useState('one');
@@ -26,6 +27,7 @@ export const Profile = () => {
                     <Tab value="one" label="Publicaciones" />
                     <Tab value="two" label="Contrataciones" />
                     <Tab value="three" label="Comentarios" />
+                    <Tab value="four" label="Mis datos" />
                 </Tabs>
                 <div>
                     {value === "one" && (
@@ -36,6 +38,9 @@ export const Profile = () => {
                     )}
                     {value === "three" && (
                         <CommentsManager/>
+                    )}
+                    {value === "four" && (
+                        <UserData/>
                     )}
                 </div>
             </div>

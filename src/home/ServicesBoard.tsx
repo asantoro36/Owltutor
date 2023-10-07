@@ -35,9 +35,9 @@ export const ServicesBoard = () => {
                             filteredClasses.length === 0?
                                 <Typography variant={"h3"} className={"services-not-found"}>No encontramos servicios para esta búsqueda</Typography>
                                 :
-                            filteredClasses.map((s) => (
-                                s.isPublished && <ServiceCard service={s}/>
-                            ))
+                                filteredClasses.map((s) => (
+                                    s.isPublished && <ServiceCard service={s}/>
+                                ))
                         }
                     </div>
                 </div>

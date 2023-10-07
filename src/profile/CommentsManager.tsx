@@ -1,7 +1,5 @@
 import {Divider} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {IContact} from "../entities/Contact";
-import {ContactPaper} from "./ContactPaper";
 import * as React from "react";
 import {getUserServices, updateService} from "../controller/ServiceController";
 import {getLoggedUser} from "../controller/UserController";

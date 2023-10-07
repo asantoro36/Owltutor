@@ -104,7 +104,7 @@ function ResponsiveAppBar() {
                                 <div className={"appbar-username"}>{`${loggedUser?.name} ${loggedUser?.surname}`}</div>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="" sx={{ bgcolor: loggedUser?.photoUrl}}>{loggedUser?.name.charAt(0)}{loggedUser?.surname.charAt(0)}</Avatar>
+                                        <Avatar alt="" sx={{ bgcolor: loggedUser?.photoUrl}}>{loggedUser?.name.charAt(0)}</Avatar>
                                     </IconButton>
                                 </Tooltip>
                             </div>
