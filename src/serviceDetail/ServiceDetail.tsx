@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
 import {getService, updateService} from "../controller/ServiceController";
-import {Divider, TextField} from "@mui/material";
+import {Alert, Divider, Snackbar, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
 import {getUser} from "../controller/UserController";
@@ -26,7 +26,11 @@ export const ServiceDetail = () => {
     const { id } = useParams();
     const service = getService(parseInt(String(id ? parseInt(id) : -1)))
     const userOwner = getUser(service.responsibleId)
+    const [openSnack, setOpenSnack] = React.useState(false);
 
+    const handleClick = () => {
+        setOpenSnack(true);
+    };
     const getConcatenatedDays = () => {
         const selectedDays = service.days.map((id: string) => {
             const foundDay = days.find((day) => day.id === id);
@@ -35,6 +39,14 @@ export const ServiceDetail = () => {
 
         return selectedDays.join('-');
     }
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnack(false);
+    };
 
     const sendComment = () => {
         service.comments.push({
@@ -46,6 +58,7 @@ export const ServiceDetail = () => {
         })
         updateService(service)
         setNewComment("")
+        handleClick()
     }
 
     const getDate = () => {
@@ -109,6 +122,15 @@ export const ServiceDetail = () => {
                     <div onClick={sendComment} className={"button-secondary"}>Comentar</div>
                 </div>
             </div>
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={openSnack}
+                autoHideDuration={6000}
+                onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Tu comentario se envió exitosamente!
+                </Alert>
+            </Snackbar>
             <ContactDialog open={open} setOpen={setOpen} service={service}/>
         </>
         );

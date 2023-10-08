@@ -75,7 +75,7 @@ export const FilterBar:  React.FC<FilterBarProps>  = ({ services, setFilteredSer
         const newFiltersSelected = [...filters];
 
         if(shouldFilter) {
-            if(filterId !==RATING || !newFiltersSelected.includes(RATING))
+            if(filterId !==CATEGORY || !newFiltersSelected.includes(CATEGORY))
                 newFiltersSelected.push(filterId)
         }
         else {
