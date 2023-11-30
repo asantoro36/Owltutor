@@ -4,6 +4,9 @@ import {useNavigate} from "react-router-dom";
 import {createUser, validateUserExisting} from "../controller/UserController";
 import Typography from "@mui/material/Typography";
 
+
+
+
 export const CreateAccountForm = () => {
 
     const navigate = useNavigate()
@@ -55,12 +58,12 @@ export const CreateAccountForm = () => {
         return `rgb(${randomR},${randomG},${randomB})`;
     }
 
-    const handleCreateUserButton = () => {
+    const handleCreateUserButton = async () => {
         setTitleError(formData.title.trim() === "")
         setExperienceError(formData.experience.trim() === "")
 
         if(!titleError && !experienceError) {
-            createUser({
+            await createUser({
                 name: formData.name,
                 surname: formData.surname,
                 mail: formData.mail,
@@ -69,8 +72,7 @@ export const CreateAccountForm = () => {
                 title: formData.title,
                 experience: formData.experience,
                 photoUrl: getRandomColor()
-            })
-            navigate("/createCongrats")
+            }).then(() => navigate("/createCongrats"));
         }
     }
 

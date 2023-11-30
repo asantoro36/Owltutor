@@ -2,7 +2,7 @@ import {Alert, Divider, Snackbar, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, {useState} from "react";
 import "./UserData.css"
-import {createUser, getLoggedUser, validateUserExisting} from "../controller/UserController";
+import { getLoggedUser, validateUserExisting} from "../controller/UserController";
 
 export const UserData = () => {
 
@@ -70,7 +70,7 @@ export const UserData = () => {
         setExperienceError(formData.experience.trim() === "")
 
         if(!titleError && !experienceError) {
-            createUser({
+            /*createUser({
                 name: formData.name,
                 surname: formData.surname,
                 mail: formData.mail,
@@ -79,7 +79,7 @@ export const UserData = () => {
                 title: formData.title,
                 experience: formData.experience,
                 photoUrl: loggedUser? loggedUser.photoUrl : getRandomColor()
-            })
+            })*/
         }
         handleClick()
     }

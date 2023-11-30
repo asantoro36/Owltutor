@@ -1,23 +1,11 @@
 import {User} from "../entities/User";
-import {Service} from "../entities/Service";
+import {post} from "../services/UserService";
 
-export const createUser = (userForm: User) => {
-    const userData = {
-        name: userForm.name,
-        surname: userForm.surname,
-        mail: userForm.mail,
-        phone: userForm.phone,
-        password: userForm.password,
-        title: userForm.title,
-        experience: userForm.experience,
-        photoUrl: userForm.photoUrl,
-    };
-
-    const userDataJSON = JSON.stringify(userData);
-    localStorage.setItem(userForm.mail, userDataJSON)
+ export const createUser = (userForm: User) => {
+    return post(userForm).then(response => {
+        console.log(response)
+    })
 }
-
-
 
 export const updatePassword = (userEmail: string, newPassword: string) => {
     const userDataJSON = localStorage.getItem(userEmail);
