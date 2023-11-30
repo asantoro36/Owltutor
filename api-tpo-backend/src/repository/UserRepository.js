@@ -27,4 +27,17 @@ const save = async (user) => {
     return await pool.query(query, [name, surname, mail, phone, password, title, experience, photoUrl]);
 }
 
-module.exports = { save };
+const getById = async (userId) => {
+    try {
+        const client = await pool.connect();
+        const query = 'SELECT * FROM users WHERE id=$1';
+        const result = await client.query(query, [userId]);
+        console.log(result)
+        client.release();
+        return result.rows[0];
+    } catch (error) {
+        return null
+    }
+}
+
+module.exports = { save, getById};

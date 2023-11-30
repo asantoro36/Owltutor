@@ -1,6 +1,5 @@
 const userRepository = require("../repository/UserRepository");
 
-
 const createUser = async (req, res) => {
     try {
         const {
