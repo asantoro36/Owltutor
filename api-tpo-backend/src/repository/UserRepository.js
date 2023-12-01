@@ -39,4 +39,16 @@ const getById = async (userId) => {
     }
 }
 
-module.exports = { save, getById};
+const getByEmail = async (email) => {
+    try {
+        const client = await pool.connect();
+        const query = 'SELECT * FROM users WHERE email=$1';
+        const result = await client.query(query, [email]);
+        client.release();
+        return result.rows[0];
+    } catch (error) {
+        return null
+    }
+}
+
+module.exports = { save, getById, getByEmail};

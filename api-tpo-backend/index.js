@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.post('/auth/signup', authUser);
 app.post('/auth/login', authUser);
 
 app.post('/users', createUser);

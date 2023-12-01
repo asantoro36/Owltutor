@@ -1,4 +1,6 @@
 const {Pool } = require('pg');
+const {getByEmail} = require("../repository/UserRepository");
+const jwt = require("jsonwebtoken");
 
 const pool = new Pool({
     user: 'postgres',
@@ -9,6 +11,22 @@ const pool = new Pool({
 });
 
 const authUser = async (req, res) => {
+    const {email, password} = req.body;
+
+    const user = await getByEmail(email);
+    if (!user || user.pass !== password) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const payload = { userId: user.id, email: email };
+    const secretKey = 'SuperSecret';
+    const options = { expiresIn: '1h' };
+    const token = jwt.sign(payload, secretKey, options);
+
+    res.json({ access_token: token });
+}
+
+const createAccount = async (req, res) => {
 
     const {email, password} = req.body;
 
@@ -22,4 +40,4 @@ const authUser = async (req, res) => {
     }
 }
 
-module.exports = { authUser };
+module.exports = { authUser, createAccount };

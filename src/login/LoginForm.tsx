@@ -8,7 +8,7 @@ export const LoginForm = () => {
     const navigate = useNavigate()
     const [hideLoginError, setHideLoginError] = useState(true);
     const [formData, setFormData] = useState({
-        username: '',
+        email: '',
         password: '',
     });
 
@@ -37,8 +37,8 @@ export const LoginForm = () => {
                     variant="filled"
                     margin="normal"
                     label="Nombre de usuario o correo electrónico"
-                    name="username"
-                    value={formData.username}
+                    name="email"
+                    value={formData.email}
                     onChange={handleInputChange}
                     required
                 />

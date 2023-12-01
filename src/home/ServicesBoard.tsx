@@ -44,15 +44,10 @@ export const ServicesBoard = () => {
 
     const renderItems = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
-        console.log("START INDEX:" + startIndex)
         const endIndex = startIndex + itemsPerPage;
-        console.log("END INDEX:" + endIndex)
-        console.log( filteredClasses)
         const filteredAndPublishedClasses = filteredClasses.filter((s) => s.isPublished);
-        console.log(filteredAndPublishedClasses)
         const itemsToRender = filteredAndPublishedClasses.slice(startIndex, endIndex);
 
-        console.log(itemsToRender)
         return (<>
                 {itemsToRender.map((s, index) => (
                     <ServiceCard key={index} service={s} />
