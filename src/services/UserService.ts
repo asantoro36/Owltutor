@@ -9,3 +9,13 @@ export const post = (userData: any) => {
             'Access-Control-Allow-Origin': '*'},
     }).then((response) => response.data);
 };
+
+export const getUser = (token: any) => {
+    return axios({
+        method: "get",
+        url: `http://localhost:8080/users`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': token},
+    }).then((response) => response.data);
+};

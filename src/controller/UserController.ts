@@ -22,14 +22,15 @@ export const updatePassword = (userEmail: string, newPassword: string) => {
 }
 
 export const getLoggedUser = (): User | null => {
-    const userId = localStorage.getItem("token")
-    const userDataJSON = localStorage.getItem(userId ? userId : "");
-
-    if (userDataJSON) {
-        try {
-            return JSON.parse(userDataJSON);
-        } catch (error) {
-            console.error('Error al analizar el JSON del usuario:', error);
+    const token = localStorage.getItem("token")
+    if(token){
+        const userDataJSON = localStorage.getItem(token);
+        if (userDataJSON) {
+            try {
+                return JSON.parse(userDataJSON);
+            } catch (error) {
+                console.error('Error al analizar el JSON del usuario:', error);
+            }
         }
     }
     return null;
