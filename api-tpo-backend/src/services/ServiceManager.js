@@ -1,4 +1,4 @@
-const {getAll} = require("../repository/ServiceRepository");
+const {getAll, getByServiceId} = require("../repository/ServiceRepository");
 const commentRepository = require("../repository/CommentRepository");
 const contactRepository = require("../repository/ContactRepository");
 const categoryRepository = require("../repository/CategoryRepository");
@@ -12,7 +12,6 @@ const getAllServices = async () => {
     return await Promise.all(
         services.map(async (service) => {
             try {
-
                 const [comments, contacts, category, user] = await Promise.all([
                     commentRepository.getAllByServiceId(service.id),
                     contactRepository.getAllByServiceId(service.id),
@@ -46,6 +45,35 @@ const getAllServices = async () => {
     }
 }
 
+const getService = async (serviceId) => {
+    try {
+        const service = await getByServiceId(serviceId)
+        const [comments, contacts, category, user] = await Promise.all([
+            commentRepository.getAllByServiceId(service.id),
+            contactRepository.getAllByServiceId(service.id),
+            categoryRepository.getById(service.category),
+            userRepository.getById(service.responsibleId),
+        ]);
+        const responsible = user.name + " " + user.surname
+        const responsibleExperience = user.experience
+        const responsiblePhotoUrl = user.photoUrl
+        const responsibleEmail = user.email
+        return {
+            ...service,
+            comments,
+            contacts,
+            category,
+            responsible,
+            responsibleExperience,
+            responsiblePhotoUrl,
+            responsibleEmail
+        };
+    } catch (error) {
+        console.error(`Error retrieving services: ${error.message}`);
+        throw error;
+    }
+}
+
 const addContact = async (contactInfo) => {
     const newContact = new Contact(
         null,
@@ -62,4 +90,4 @@ const addContact = async (contactInfo) => {
 }
 
 
-module.exports = { getAllServices, addContact };
+module.exports = { getAllServices, addContact, getService };

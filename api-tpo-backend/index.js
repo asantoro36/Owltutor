@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const {createUser, getUser, getUserServices, getUserContacts, getUserComments} = require("./src/Controllers/UserController");
 const {authUser, recoverPassword, changePassword} = require("./src/Controllers/AuthController");
-const {getServices, contact} = require("./src/Controllers/ServiceController");
+const {getServices, contact, getService} = require("./src/Controllers/ServiceController");
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +21,7 @@ app.get('/users/:userId/contacts', getUserContacts)
 app.get('/users/:userId/comments', getUserComments)
 
 app.get('/services', getServices)
+app.get('/services/:serviceId', getService)
 app.post('/services/:id/contacts', contact)
 
 

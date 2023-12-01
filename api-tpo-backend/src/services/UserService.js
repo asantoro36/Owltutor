@@ -36,7 +36,7 @@ const getComments = async (userId) => {
 
         const commentsPromise = services.map(async (service) => {
             const comments = await commentsRepository.getAllByServiceId(service.id);
-            return comments || []; // Si contacts es null o undefined, devuelve un arreglo vacío
+            return comments || [];
         });
 
         const comments = await Promise.all(commentsPromise);

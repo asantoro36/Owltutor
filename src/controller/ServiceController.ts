@@ -1,5 +1,5 @@
 import {Service} from "../entities/Service";
-import {getAllServices} from "../services/ServiceGateway";
+import {getAllServices, getServiceById} from "../services/ServiceGateway";
 import {getComments, getUserServicesById} from "../services/UserService";
 
 export const saveService = (service: Service) => {
@@ -42,9 +42,8 @@ export const removeService = (serviceId: number) => {
     saveInLocalStorage(savedServices)
 }
 
-export const getService = (serviceId: number) => {
-    let savedServices = getFromLocalStorage();
-    return savedServices.find((s: Service) => s.id === serviceId)
+export const getService = async (serviceId: string) => {
+    return await getServiceById(serviceId)
 }
 
 const saveInLocalStorage = (services: Service[]) => {

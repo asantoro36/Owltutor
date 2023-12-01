@@ -10,6 +10,15 @@ export const getAllServices = () => {
     }).then((response) => response.data);
 };
 
+export const getServiceById = (serviceId: string) => {
+    return axios({
+        method: "get",
+        url: `http://localhost:8080/services/${serviceId}`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'},
+    }).then((response) => response.data);
+};
+
 interface ContactProps {
     name: string,
     phone: string,

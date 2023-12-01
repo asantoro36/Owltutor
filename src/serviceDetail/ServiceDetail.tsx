@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
-import {getService, updateService} from "../controller/ServiceController";
+import {getService, getUserServices, updateService} from "../controller/ServiceController";
 import {Alert, Divider, Snackbar, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
@@ -18,15 +18,30 @@ import Typography from "@mui/material/Typography";
 import {ContactDialog} from "../components/ContactDialog/ContactDialog";
 import {IComment} from "../entities/Comment";
 import {CommentPaper} from "../components/CommentPaper/CommentPaper";
+import {useEffect, useState} from "react";
 
 export const ServiceDetail = () => {
 
     const [open, setOpen] = React.useState(false);
     const [newComment, setNewComment] = React.useState("");
+    const [service, setService ]= useState<any>(undefined)// getService(parseInt(String(id ? parseInt(id) : -1)))
     const { id } = useParams();
-    const service = getService(parseInt(String(id ? parseInt(id) : -1)))
-    const userOwner = getUser(service.responsibleId)
     const [openSnack, setOpenSnack] = React.useState(false);
+
+    const fetchData = async () => {
+        try {
+            console.log("LLAMANDO")
+            const service = await getService(id? id : "0");
+            setService(service)
+
+        } catch (error) {
+            console.error('Error al obtener servicios:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData()
+    }, []);
 
     const handleClick = () => {
         setOpenSnack(true);
@@ -52,7 +67,7 @@ export const ServiceDetail = () => {
         service.comments.push({
             id: 0,
             text: newComment,
-            userId: userOwner?.mail,
+            userId: service?.responsibleEmail,
             date: getDate(),
             status: "PENDING"
         })
@@ -74,11 +89,12 @@ export const ServiceDetail = () => {
     return (
         <>
             <AppBar/>
+            {service && (
             <div className={"detail-board board"}>
-                <h1>{service.title}</h1>
+                <h1>{service?.title}</h1>
                 <div className={"title-detail appbar-userinfo-container"}>
-                    <Avatar alt="" sx={{ bgcolor: userOwner?.photoUrl}}>{userOwner?.name.charAt(0)}</Avatar>
-                    <div>{userOwner?.name} {userOwner?.surname}</div>
+                    <Avatar alt="" sx={{ bgcolor: service?.responsiblePhotoUrl}}>{service?.responsible.charAt(0)}</Avatar>
+                    <div>{service?.responsible} </div>
                 </div>
                 <Divider/>
                 <div>
@@ -88,17 +104,17 @@ export const ServiceDetail = () => {
                         <Typography color="textSecondary">{service?.responsibleExperience}</Typography>
                     </div>
                     <div>
-                        <div className={"detail-center-layout"}><AccessTimeIcon/> Tiempo de la clase: {service.duration}</div>
+                        <div className={"detail-center-layout"}><AccessTimeIcon/> Tiempo de la clase: {service?.duration}</div>
                         <Divider/>
-                        <div className={"detail-center-layout"}><EventIcon/> Frecuencia: {frecuencies.find((s: any) => s.id === service.frequency)?.name}</div>
+                        <div className={"detail-center-layout"}><EventIcon/> Frecuencia: {frecuencies.find((s: any) => s.id === service?.frequency)?.name}</div>
                         <Divider/>
-                        <div className={"detail-center-layout"}><PeopleIcon/> Tipo de clase: {types.find((s: any) => s.id === service.type)?.name}</div>
+                        <div className={"detail-center-layout"}><PeopleIcon/> Tipo de clase: {types.find((s: any) => s.id === service?.type)?.name}</div>
                         <Divider/>
                         <div className={"detail-center-layout"}><DateRangeIcon/> Dias de cursada: {getConcatenatedDays()}</div>
                         <Divider/>
                         <div className={"detail-center-layout"}><GradeIcon/>{service.rating}</div>
                         <Divider/>
-                        <div className={"detail-center-layout "}>Costo por clase :<span className={"detail-price"}>$ {service.cost}</span></div>
+                        <div className={"detail-center-layout "}>Costo por clase :<span className={"detail-price"}>$ {service?.cost}</span></div>
                     </div>
                     <div className={"detail-right-layout"}>
                         <div onClick={() => setOpen(!open) } className="contact-button">Contactar</div>
@@ -121,7 +137,9 @@ export const ServiceDetail = () => {
                     />
                     <div onClick={sendComment} className={"button-secondary"}>Comentar</div>
                 </div>
+                <ContactDialog open={open} setOpen={setOpen} service={service}/>
             </div>
+            )}
             <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 open={openSnack}
@@ -131,7 +149,7 @@ export const ServiceDetail = () => {
                     Tu comentario se envió exitosamente!
                 </Alert>
             </Snackbar>
-            <ContactDialog open={open} setOpen={setOpen} service={service}/>
+
         </>
         );
 }
