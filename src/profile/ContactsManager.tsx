@@ -33,7 +33,7 @@ export const ContactsManager = () => {
                             <Typography variant={"h4"} className={"services-not-found"}>No hay ninguna solicitud pendiente</Typography>
                             :
                             contacts.map((contact: IContact) => (
-                                <ContactPaper contact={contact} refetch={setContacts}/>
+                                <ContactPaper contact={contact} refetch={fetchData}/>
                             ))
                     }
                 </div>

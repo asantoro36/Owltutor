@@ -32,7 +32,7 @@ export const ContactPaper = (props: ContactPaperProps) => {
 
     const update = (contact: IContact) =>{
         updateContact(contact)
-        //refetch(getContacts(loggedUser? loggedUser.mail : ""))
+        refetch()
     }
 
     return (

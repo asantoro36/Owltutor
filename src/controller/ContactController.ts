@@ -1,5 +1,6 @@
 import {IContact} from "../entities/Contact";
 import { getUserContacts} from "../services/UserService";
+import {updateStatus} from "../services/ContactService";
 
 export const saveContact = (contact: IContact) => {
     let contacts = getFromLocalStorage()
@@ -17,10 +18,8 @@ export const getContacts = async (): Promise<IContact[]> => {
 }
 
 export const updateContact = (contact: IContact) => {
-    let savedContacts = getFromLocalStorage();
-    const index = savedContacts.findIndex((s: IContact) => s.id === contact.id)
-    savedContacts[index===-1? 0 : index] = contact
-    saveInLocalStorage(savedContacts)
+    updateStatus(contact, localStorage.getItem('token')!!)
+
 }
 
 export const getContactId = () => {

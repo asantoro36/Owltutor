@@ -42,4 +42,17 @@ const deleteById = async (contactId) => {
     }
 }
 
-module.exports = { save, getAllByServiceId, deleteById };
+const updateStatus = async (contactId, newStatus) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('UPDATE contacts SET status = $1 WHERE id = $2', [newStatus, contactId]);
+        client.release();
+        return result
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        return []
+    }
+}
+
+
+module.exports = { save, getAllByServiceId, deleteById, updateStatus };

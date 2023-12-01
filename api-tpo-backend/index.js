@@ -4,6 +4,7 @@ const cors = require('cors');
 const {createUser, getUser, getUserServices, getUserContacts, getUserComments} = require("./src/Controllers/UserController");
 const {authUser, recoverPassword, changePassword} = require("./src/Controllers/AuthController");
 const {getServices, contact, getService, createService, updateService, deleteService} = require("./src/Controllers/ServiceController");
+const {updateContactStatus} = require("./src/Controllers/ContactController");
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,7 +25,9 @@ app.put('/services/:serviceId', updateService)
 app.delete('/services/:serviceId', deleteService)
 app.get('/services', getServices)
 app.get('/services/:serviceId', getService)
+
 app.post('/services/:id/contacts', contact)
+app.put('/contacts/:id', updateContactStatus)
 
 
 
