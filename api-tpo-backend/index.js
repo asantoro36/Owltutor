@@ -9,12 +9,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/auth/signup', authUser);
+app.post('/auth/signup', createUser);
 app.post('/auth/login', authUser);
 app.post('/auth/recover', recoverPassword);
 app.post('/auth/changePassword', changePassword)
 
-app.post('/users', createUser);
 app.get('/users', getUser);
 app.get('/users/:userId/services', getUserServices)
 app.get('/users/:userId/contacts', getUserContacts)

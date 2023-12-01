@@ -3,7 +3,7 @@ import axios from "axios";
 export const post = (userData: any) => {
     return axios({
         method: "post",
-        url: `http://localhost:8080/users`,
+        url: `http://localhost:8080/auth/signup`,
         data: JSON.stringify(userData),
         headers: {'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'},
