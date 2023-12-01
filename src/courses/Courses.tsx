@@ -15,13 +15,22 @@ export const Courses = () => {
     const navigate = useNavigate();
     const loggedUser = getLoggedUser()
 
+    const fetchData = async () => {
+        try {
+            const servicesList = await getUserServices();
+            setClasses(servicesList);
+        } catch (error) {
+            console.error('Error al obtener servicios:', error);
+        }
+    };
+
     useEffect(() => {
-        setClasses(getUserServices(loggedUser?.mail || ""))
+        fetchData()
     }, []);
 
     const handleDelete = (serviceId: number) => {
         removeService(serviceId);
-        setClasses(getUserServices(loggedUser?.mail || ""));
+        fetchData()
     }
 
     return(

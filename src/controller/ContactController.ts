@@ -1,4 +1,5 @@
 import {IContact} from "../entities/Contact";
+import { getUserContacts} from "../services/UserService";
 
 export const saveContact = (contact: IContact) => {
     let contacts = getFromLocalStorage()
@@ -7,8 +8,12 @@ export const saveContact = (contact: IContact) => {
     saveInLocalStorage(contacts)
 }
 
-export const getContacts = (userId: string) => {
-    return getFromLocalStorageByUserId(userId)
+export const getContacts = async (): Promise<IContact[]> => {
+
+    const token = localStorage.getItem('token')!!
+    const userData = JSON.parse(localStorage.getItem(token)!!)
+
+    return await getUserContacts(token, userData.id);
 }
 
 export const updateContact = (contact: IContact) => {

@@ -1,6 +1,9 @@
 const {Pool } = require('pg');
 const {getByEmail} = require("../repository/UserRepository");
 const jwt = require("jsonwebtoken");
+const sgMail = require('@sendgrid/mail');
+const {saveRecoverPassword} = require("../repository/AuthRepository");
+sgMail.setApiKey('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')
 
 const pool = new Pool({
     user: 'postgres',
@@ -40,4 +43,80 @@ const createAccount = async (req, res) => {
     }
 }
 
-module.exports = { authUser, createAccount };
+const recoverPassword = async (req, res) => {
+    const {email} = req.body;
+    const userSaved = await getByEmail(email);
+    const number = generateRandomNumber()
+    const emailTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperación de Contraseña</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333333;
+    }
+
+    p {
+      color: #555555;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Recuperación de Contraseña</h2>
+    <p>Hola</p>
+    <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta. </p>
+    <p>El código de recuperación es: ${number}</p>
+    <p>Si no solicitaste este cambio, puedes ignorar este correo electrónico.</p>
+    <p>Gracias</p>
+  </div>
+</body>
+</html>`;
+
+    const msg = {
+        to: 'axelsantoro@gmail.com',
+        from: 'axsantoro@uade.edu.ar',
+        subject: '[test] Recuperar password',
+        html: emailTemplate
+    };
+
+    try {
+        await sgMail.send(msg);
+        await saveRecoverPassword({email: email, recoverToken: number, userId: userSaved.id})
+        res.status(200).json({message: "OK"})
+    } catch (error) {
+        res.status(500)
+        console.error('Error al enviar el correo:', error);
+    }
+}
+
+function generateRandomNumber() {
+    const min = 100000; // Mínimo valor de 6 dígitos
+    const max = 999999; // Máximo valor de 6 dígitos
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+module.exports = { authUser, createAccount, recoverPassword };

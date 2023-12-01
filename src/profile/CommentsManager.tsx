@@ -1,27 +1,29 @@
 import {Divider} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import {getUserServices, updateService} from "../controller/ServiceController";
+import {getUserComments, getUserServices, updateService} from "../controller/ServiceController";
 import {getLoggedUser} from "../controller/UserController";
 import {Service} from "../entities/Service";
 import {useEffect, useState} from "react";
 import {CommentPaper} from "../components/CommentPaper/CommentPaper";
 import {IComment} from "../entities/Comment";
+import {CATEGORY} from "../components/FilterBar/FilterContext";
 
 export const CommentsManager = () => {
-
+    const [comments, setComments] = useState<any[]>([])
     const loggedUser = getLoggedUser()
-    const pendingComments = getUserServices(loggedUser? loggedUser?.mail : "").reduce((acc: any, service: Service) => {
-        if (service.comments) {
-            const pendingServiceComments = service.comments.filter(comment => comment.status === "PENDING");
-            return acc.concat(pendingServiceComments);
-        }
-        return acc;
-    }, []);
-    const [comments, setComments] = useState(pendingComments)
 
+    const fetchData = async () => {
+        const comments = await getUserComments()
+        const pendingComments = comments.filter(comment => comment.status === 'PENDING');
+        setComments(pendingComments)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, []);
     const updateComment = (comment: IComment) => {
-        getUserServices(loggedUser ? loggedUser?.mail : "").map((service: Service) => {
+        /*getUserServices(loggedUser ? loggedUser?.mail : "").map((service: Service) => {
             if (service.comments) {
                 const index = service.comments.findIndex((existingComment) =>
                     existingComment.text === comment.text
@@ -41,7 +43,7 @@ export const CommentsManager = () => {
             return acc;
         }, []);
 
-        setComments(updatedPendingComments);
+        setComments(updatedPendingComments);*/
     };
 
     return (

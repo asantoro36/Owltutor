@@ -19,3 +19,33 @@ export const getUser = (token: any) => {
             'Authorization': token},
     }).then((response) => response.data);
 };
+
+export const getUserServicesById = (token: any, userId: any) => {
+    return axios({
+        method: "get",
+        url: `http://localhost:8080/users/${userId}/services`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': token},
+    }).then((response) => response.data);
+};
+
+export const getUserContacts = (token: any, userId: any) => {
+    return axios({
+        method: "get",
+        url: `http://localhost:8080/users/${userId}/contacts`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': token},
+    }).then((response) => response.data);
+};
+
+export const getComments = (token: any, userId: any) => {
+    return axios({
+        method: "get",
+        url: `http://localhost:8080/users/${userId}/comments`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': token},
+    }).then((response) => response.data);
+};

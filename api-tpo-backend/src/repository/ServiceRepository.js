@@ -21,4 +21,17 @@ const getAll = async () => {
     }
 }
 
-module.exports = { getAll };
+const getByUserId = async (userId) => {
+    try {
+        const client = await pool.connect();
+        const query = 'SELECT * FROM services WHERE "responsibleId" = $1';
+        const result = await client.query(query, [userId]);
+        client.release();
+        return result.rows;
+    } catch (error) {
+        console.error('Error al obtener servicios:', error);
+        throw error;
+    }
+}
+
+module.exports = { getAll, getByUserId };

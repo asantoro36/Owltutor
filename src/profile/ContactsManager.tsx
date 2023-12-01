@@ -7,13 +7,19 @@ import {IContact} from "../entities/Contact";
 import { statuses } from "../entities/ContactStatus";
 import "./ContactsManager.css"
 import {ContactPaper} from "./ContactPaper";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const ContactsManager = () => {
 
     const loggedUser = getLoggedUser()
-    const [contacts, setContacts] = useState(getContacts(loggedUser? loggedUser.mail : ""))
+    const [contacts, setContacts] = useState<any[]>([])
 
+    const fetchData = async () => {
+        const contact = await getContacts()
+        setContacts(contact)
+    }
+
+    useEffect(() =>{fetchData()}, [])
     return (
         <div className="board">
             <div>

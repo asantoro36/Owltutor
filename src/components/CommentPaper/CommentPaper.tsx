@@ -9,6 +9,7 @@ interface CommentPaperProps {
     updateComment: any
 }
 export const CommentPaper = (props: CommentPaperProps) => {
+    console.log(props)
     const {comment, updateComment} = props
     const user = getUser(comment.userId);
 
@@ -24,7 +25,7 @@ export const CommentPaper = (props: CommentPaperProps) => {
 
     return (
         <Paper elevation={5} className={"comment-container"} >
-            <div className={"comment-username"}>{user?.name}</div>
+            <div className={"comment-username"}>{user? user.name: "anonimo"}</div>
             <Divider/>
             <span className={"comment-text"}>{comment.text}</span>
             <div className={"contact-buttons-container"}>

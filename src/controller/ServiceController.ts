@@ -1,5 +1,6 @@
 import {Service} from "../entities/Service";
 import {getAllServices} from "../services/ServiceGateway";
+import {getComments, getUserServicesById} from "../services/UserService";
 
 export const saveService = (service: Service) => {
     let services = getFromLocalStorage()
@@ -12,8 +13,19 @@ export const getServices = async () => {
     return await getAllServices();
 }
 
-export const getUserServices = (userId: string) => {
-    return getFromLocalStorage().filter((service: Service) => service.responsibleId === userId)
+export const getUserServices = async (): Promise<any> => {
+
+    const token = localStorage.getItem('token')!!
+    const userData = JSON.parse(localStorage.getItem(token)!!)
+    return await getUserServicesById(token, userData.id);
+}
+
+export const getUserComments = async (): Promise<any[]> => {
+
+    const token = localStorage.getItem('token')!!
+    const userData = JSON.parse(localStorage.getItem(token)!!)
+
+    return await getComments(token, userData.id);
 }
 
 export const updateService = (service: Service) => {

@@ -13,6 +13,7 @@ interface ContactPaperProps {
 export const ContactPaper = (props: ContactPaperProps) => {
     const loggedUser = getLoggedUser()
     const {contact, refetch} = props
+    console.log(contact)
 
     const handleAccept = () => {
         contact.status = 'APPROVED'
@@ -31,7 +32,7 @@ export const ContactPaper = (props: ContactPaperProps) => {
 
     const update = (contact: IContact) =>{
         updateContact(contact)
-        refetch(getContacts(loggedUser? loggedUser.mail : ""))
+        //refetch(getContacts(loggedUser? loggedUser.mail : ""))
     }
 
     return (
