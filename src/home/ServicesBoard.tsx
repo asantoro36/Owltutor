@@ -15,26 +15,44 @@ export const ServicesBoard = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const [filteredClasses, setFilteredClasses] = useState<Service[]>([])
-    const ServicesList = getServices()
     const itemsPerPage = 9;
     const [currentPage, setCurrentPage] = useState(1);
-    const numPages = Math.ceil(filteredClasses.filter((s) => s.isPublished).length / itemsPerPage);
+    const [numPages, setNumPages] = useState(1);
+
     const handlePageChange = (event: any, value: any) => {
         setCurrentPage(value);
     };
 
+    const fetchData = async () => {
+        try {
+            const servicesList = await getServices();
+            setNumPages(Math.ceil(servicesList.filter((s: Service) => s.isPublished).length / itemsPerPage))
+            setClasses(servicesList);
+            setFilteredClasses(servicesList);
+        } catch (error) {
+            console.error('Error al obtener servicios:', error);
+        }
+    };
 
     useEffect(() => {
-        setClasses(ServicesList)
-        setFilteredClasses(ServicesList);
+        fetchData();
     }, []);
+
+    useEffect(() => {
+        setNumPages(Math.ceil(filteredClasses.filter((s) => s.isPublished).length / itemsPerPage))
+    }, [filteredClasses]);
 
     const renderItems = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
+        console.log("START INDEX:" + startIndex)
         const endIndex = startIndex + itemsPerPage;
+        console.log("END INDEX:" + endIndex)
+        console.log( filteredClasses)
         const filteredAndPublishedClasses = filteredClasses.filter((s) => s.isPublished);
+        console.log(filteredAndPublishedClasses)
         const itemsToRender = filteredAndPublishedClasses.slice(startIndex, endIndex);
 
+        console.log(itemsToRender)
         return (<>
                 {itemsToRender.map((s, index) => (
                     <ServiceCard key={index} service={s} />
@@ -61,7 +79,6 @@ export const ServicesBoard = () => {
                                     :
                                     <>
                                         {renderItems()}
-
                                     </>
                             }
                     </div>

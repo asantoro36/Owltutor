@@ -1,4 +1,5 @@
 import {Service} from "../entities/Service";
+import {getAllServices} from "../services/ServiceGateway";
 
 export const saveService = (service: Service) => {
     let services = getFromLocalStorage()
@@ -7,11 +8,8 @@ export const saveService = (service: Service) => {
     saveInLocalStorage(services)
 }
 
-export const getServices = () => {
-    if(localStorage.getItem("services")===null) {
-        saveInLocalStorage(ServicesList)
-    }
-    return getFromLocalStorage()
+export const getServices = async () => {
+    return await getAllServices();
 }
 
 export const getUserServices = (userId: string) => {

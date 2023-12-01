@@ -16,8 +16,7 @@ const getById = async (categoryId) => {
         client.release();
         return result.rows[0].title;
     } catch (error) {
-        console.error('Error al obtener categoria:', error);
-        throw error;
+        return "General";
     }
 }
 

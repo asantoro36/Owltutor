@@ -2,6 +2,7 @@ const {getAllServices} = require("../services/ServiceManager");
 const getServices = async (req, res) => {
     try {
         const result = await getAllServices();
+
         if (result === undefined) {
             res.status(500)
         } else{

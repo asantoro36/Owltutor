@@ -32,7 +32,6 @@ const getById = async (userId) => {
         const client = await pool.connect();
         const query = 'SELECT * FROM users WHERE id=$1';
         const result = await client.query(query, [userId]);
-        console.log(result)
         client.release();
         return result.rows[0];
     } catch (error) {
