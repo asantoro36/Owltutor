@@ -42,9 +42,9 @@ export function ActionsServiceCard(props: ServiceCardProps) {
     }
 
     const handlePublishButton = () => {
-        service.isPublished = !isPublished;
+        const serviceChanged = { ...service, isPublished: !isPublished }
+        updateService(serviceChanged)
         setIsPublished(!isPublished)
-        updateService(service)
     }
 
     const handleEdit = () => {

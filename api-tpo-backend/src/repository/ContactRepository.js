@@ -30,4 +30,16 @@ const getAllByServiceId = async (serviceId) => {
     }
 }
 
-module.exports = { save, getAllByServiceId };
+const deleteById = async (contactId) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('DELETE FROM contacts WHERE id = $1 RETURNING *', [contactId]);
+        client.release();
+        return result? result.rows[0] : []
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+        return []
+    }
+}
+
+module.exports = { save, getAllByServiceId, deleteById };

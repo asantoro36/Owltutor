@@ -1,4 +1,4 @@
-const {getAll, getByServiceId} = require("../repository/ServiceRepository");
+const {getAll, getByServiceId, insertService, updateService, deleteById} = require("../repository/ServiceRepository");
 const commentRepository = require("../repository/CommentRepository");
 const contactRepository = require("../repository/ContactRepository");
 const categoryRepository = require("../repository/CategoryRepository");
@@ -74,6 +74,14 @@ const getService = async (serviceId) => {
     }
 }
 
+const saveService = async (serviceInfo) => {
+    return await insertService(serviceInfo)
+}
+
+const update = async (serviceInfo) => {
+    return updateService(serviceInfo)
+}
+
 const addContact = async (contactInfo) => {
     const newContact = new Contact(
         null,
@@ -89,5 +97,19 @@ const addContact = async (contactInfo) => {
     return result.rows[0]
 }
 
+const remove = async (serviceId) => {
+    const [comments, contacts] = await Promise.all([
+        commentRepository.getAllByServiceId(serviceId),
+        contactRepository.getAllByServiceId(serviceId),
+    ]);
 
-module.exports = { getAllServices, addContact, getService };
+    const deleteComments = comments.map((comment) => commentRepository.deleteById(comment.id));
+    const deleteContacts = contacts.map((contact) => contactRepository.deleteById(contact.id));
+
+    await Promise.all([...deleteComments, ...deleteContacts]);
+
+    return await deleteById(serviceId);
+}
+
+
+module.exports = { getAllServices, addContact, getService, saveService, update, remove };

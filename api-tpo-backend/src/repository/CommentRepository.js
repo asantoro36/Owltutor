@@ -21,4 +21,17 @@ const getAllByServiceId = async (serviceId) => {
     }
 }
 
-module.exports = { getAllByServiceId };
+const deleteById = async (commentId) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('DELETE FROM comments WHERE id = $1 RETURNING *', [commentId]);
+        client.release();
+        return result? result.rows[0] : []
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+        return []
+    }
+}
+
+
+module.exports = { getAllByServiceId, deleteById };

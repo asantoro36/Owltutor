@@ -32,7 +32,7 @@ interface FormData {
     cost: string; // Cambiado a string en lugar de boolean
 }
 
-interface CourseFormInterface {
+interface CourseFormInterface{
     isEditing: boolean
 }
 
@@ -108,7 +108,7 @@ export const CourseForm = (props: CourseFormInterface) => {
             type: formData.type,
             frequency: formData.frequency,
             rating: isEditing? serviceToEdit.rating : 0,
-            responsibleId: loggedUser?.mail || "",
+            responsibleId: loggedUser?.id || "",
             responsible: loggedUser?.name + " " + loggedUser?.surname, //TODO hacer que agregue el id del usuario y luego busque info
             responsibleExperience: loggedUser?.experience || "",
             responsiblePhotoUrl: loggedUser?.photoUrl || "#F453L3",

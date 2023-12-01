@@ -1,6 +1,38 @@
 import axios from "axios";
 import {IContact} from "../entities/Contact";
 
+export const createService = (serviceProps: any, token: string) => {
+    return axios({
+        method: "post",
+        url: `http://localhost:8080/services`,
+        data: JSON.stringify(serviceProps),
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        'Authoriation': token},
+    }).then((response) => response.data);
+};
+
+export const putService = (serviceProps: any, token: string) => {
+    return axios({
+        method: "put",
+        url: `http://localhost:8080/services/${serviceProps.id}`,
+        data: JSON.stringify(serviceProps),
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        'Authoriation': token},
+    }).then((response) => response.data);
+};
+
+export const remove = (serviceId: any, token: string) => {
+    return axios({
+        method: "delete",
+        url: `http://localhost:8080/services/${serviceId}`,
+        headers: {'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Authoriation': token},
+    }).then((response) => response.data);
+};
+
 export const getAllServices = () => {
     return axios({
         method: "get",

@@ -5,15 +5,13 @@ import Typography from "@mui/material/Typography";
 import {ActionsServiceCard} from "../components/ActionsServiceCard/ActionsServiceCard";
 import "./Courses.css"
 import {useNavigate} from "react-router-dom";
-import {getServices, getUserServices, removeService} from "../controller/ServiceController";
-import {getLoggedUser} from "../controller/UserController";
+import { getUserServices, removeService, updateService} from "../controller/ServiceController";
 import {Divider} from "@mui/material";
 
 export const Courses = () => {
 
     const [classes, setClasses] = useState<Service[]>([])
     const navigate = useNavigate();
-    const loggedUser = getLoggedUser()
 
     const fetchData = async () => {
         try {

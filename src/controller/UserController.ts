@@ -12,7 +12,7 @@ export const updatePassword = async (userData: any) => {
      await changePassword(userData)
 }
 
-export const getLoggedUser = (): User | null => {
+export const getLoggedUser = (): any | null => {
     const token = localStorage.getItem("token")
     if(token){
         const userDataJSON = localStorage.getItem(token);
