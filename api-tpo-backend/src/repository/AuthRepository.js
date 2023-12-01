@@ -28,5 +28,20 @@ const saveRecoverPassword = async (userData) => {
     }
 }
 
+const getRecoverPassword = async (email) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query(
+            'SELECT "recoverToken" FROM recover WHERE email = $1 ORDER BY id DESC LIMIT 1',
+            [email]
+        );
+        client.release();
+        return result.rows[0].recoverToken;
+    } catch (error) {
+        console.error('Error al obtener token:', error);
+        throw error;
+    }
+}
 
-module.exports = { saveRecoverPassword };
+
+module.exports = { saveRecoverPassword, getRecoverPassword };

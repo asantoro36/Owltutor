@@ -1,5 +1,6 @@
 import {User} from "../entities/User";
 import {post} from "../services/UserService";
+import {changePassword} from "../services/AuthService";
 
  export const createUser = (userForm: User) => {
     return post(userForm).then(response => {
@@ -7,18 +8,8 @@ import {post} from "../services/UserService";
     })
 }
 
-export const updatePassword = (userEmail: string, newPassword: string) => {
-    const userDataJSON = localStorage.getItem(userEmail);
-    if (userDataJSON) {
-        try {
-            let userData = JSON.parse(userDataJSON);
-            userData.password = newPassword;
-            localStorage.setItem(userEmail, JSON.stringify(userData));
-
-        } catch (error) {
-            console.error('Error al analizar el JSON del usuario:', error);
-        }
-    }
+export const updatePassword = async (userData: any) => {
+     await changePassword(userData)
 }
 
 export const getLoggedUser = (): User | null => {

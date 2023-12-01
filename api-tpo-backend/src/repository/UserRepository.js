@@ -51,4 +51,18 @@ const getByEmail = async (email) => {
     }
 }
 
-module.exports = { save, getById, getByEmail};
+const updateUserPassword = async (userId, newPassword) => {
+    try {
+        const client = await pool.connect();
+        await client.query('UPDATE users SET pass = $1 WHERE id = $2', [
+            newPassword,
+            userId,
+        ]);
+        client.release();
+    } catch (error) {
+        console.error(`Error en updateUserPassword: ${error.message}`);
+        throw error;
+    }
+};
+
+module.exports = { save, getById, getByEmail, updateUserPassword};

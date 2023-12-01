@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 import {validateAuthCode} from "../controller/AuthController";
 import {updatePassword} from "../controller/UserController";
+import {sendCode} from "../services/AuthService";
 
 export const PasswordRecoverForm = () => {
 
@@ -18,11 +19,13 @@ export const PasswordRecoverForm = () => {
 
     const [formData, setFormData] = useState({
         email: '',
-        password: '',
+        newPassword: '',
         code: ''
     });
     const [showEmailError, setShowEmailError] = useState(false)
     const handleInputChange = (event: any) => {
+
+        sendCode({email: event.target.value})
         setUserIdentity(event.target.value)
     };
 
@@ -31,7 +34,6 @@ export const PasswordRecoverForm = () => {
         if(userIdentity.trim() === "") {
             setShowEmailError(true)
         } else {
-            //Recupero el user y envio el codigo y seteo el {email o id?}
             setFormData({
                 ...formData,
                 "email": userIdentity,
@@ -41,19 +43,17 @@ export const PasswordRecoverForm = () => {
     };
 
     const handleSendChangePassword = () => {
-        const { password, code } = formData;
+        const { newPassword, code } = formData;
 
-        const isValidPassword = password.trim() !== "" && password === passwordRepeat;
-        const isValidCode = validateAuthCode(code);
+        const isValidPassword = newPassword.trim() !== "" && newPassword === passwordRepeat;
 
         setPasswordValidateError(!isValidPassword);
-        setInvalidCodeError(!isValidCode);
 
-        if (isValidPassword && isValidCode) {
-            updatePassword(formData.email, formData.password);
-            navigate('/login');
+        if (isValidPassword) {
+            updatePassword(formData).then(() => {
+                    navigate('/login')
+            }).catch(() => setInvalidCodeError(true))
         }
-
     }
 
     return (
@@ -112,10 +112,10 @@ export const PasswordRecoverForm = () => {
                             margin="normal"
                             label="Ingresa tu nueva contraseña"
                             name="newPassword"
-                            value={formData.password}
+                            value={formData.newPassword}
                             onChange={(e) => {setFormData({
                                 ...formData,
-                                "password": e.target.value,
+                                "newPassword": e.target.value,
                             })}}
                             required
                             error={passwordValidate}

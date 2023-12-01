@@ -2,7 +2,8 @@ const {Pool } = require('pg');
 const {getByEmail} = require("../repository/UserRepository");
 const jwt = require("jsonwebtoken");
 const sgMail = require('@sendgrid/mail');
-const {saveRecoverPassword} = require("../repository/AuthRepository");
+const {saveRecoverPassword, getRecoverPassword} = require("../repository/AuthRepository");
+const {changeUserPassword} = require("../services/UserService");
 sgMail.setApiKey('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')
 
 const pool = new Pool({
@@ -113,10 +114,27 @@ const recoverPassword = async (req, res) => {
     }
 }
 
+const changePassword = async (req, res) => {
+
+    const {code, email, newPassword} = req.body;
+    try {
+        const recoverCodeSaved = await getRecoverPassword(email)
+
+        if(code !== recoverCodeSaved)
+            res.status(401).json({status: "Unauthorized"})
+        await changeUserPassword({newPassword, email})
+        res.status(200).json({message:"OK"})
+    } catch (error) {
+        res.status(401)
+        console.error('Error al enviar el correo:', error);
+    }
+
+}
+
 function generateRandomNumber() {
     const min = 100000; // Mínimo valor de 6 dígitos
     const max = 999999; // Máximo valor de 6 dígitos
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-module.exports = { authUser, createAccount, recoverPassword };
+module.exports = { authUser, createAccount, recoverPassword, changePassword };

@@ -7,6 +7,7 @@ export const validateAuthCode = (code: string) => {
 
 export const loginUser = async (formData: any) => {
     const response = await login(formData)
+    console.log(response)
     if (response) {
        localStorage.setItem('token', response.access_token);
        const user = await getUser(response.access_token)

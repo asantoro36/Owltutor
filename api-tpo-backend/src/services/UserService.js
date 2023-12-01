@@ -1,6 +1,7 @@
 const serviceRepository = require("../repository/ServiceRepository");
 const contactRepository = require("../repository/ContactRepository");
 const commentsRepository = require("../repository/CommentRepository");
+const userRepository = require("../repository/UserRepository");
 
 const getServices = async (userId) => {
     return await serviceRepository.getByUserId(userId)
@@ -47,5 +48,10 @@ const getComments = async (userId) => {
     }
 }
 
+const changeUserPassword = async (userData) => {
+    const {newPassword, email} = userData;
+    const user = await userRepository.getByEmail(email)
+    await userRepository.updateUserPassword(user.id, newPassword)
+}
 
-module.exports = { getContacts, getServices, getComments };
+module.exports = { getContacts, getServices, getComments, changeUserPassword };
