@@ -8,6 +8,15 @@ const pool = new Pool({
     port: 5432,
 });
 
+const save = async (contact) => {
+    const query = `
+      INSERT INTO contacts ("serviceId", "name", phone, email, "time", message, status)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id
+    `;
+
+    return await pool.query(query, [contact.serviceId, contact.name, contact.phone, contact.email, contact.time, contact.message, contact.status]);
+}
+
 const getAllByServiceId = async (serviceId) => {
     try {
         const client = await pool.connect();
@@ -21,4 +30,4 @@ const getAllByServiceId = async (serviceId) => {
     }
 }
 
-module.exports = { getAllByServiceId };
+module.exports = { save, getAllByServiceId };

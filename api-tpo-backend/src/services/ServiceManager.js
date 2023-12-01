@@ -3,12 +3,13 @@ const commentRepository = require("../repository/CommentRepository");
 const contactRepository = require("../repository/ContactRepository");
 const categoryRepository = require("../repository/CategoryRepository");
 const userRepository = require("../repository/UserRepository");
+const Contact = require("../model/Contact");
 
 const getAllServices = async () => {
 
     try {
     const services = await getAll();
-    const allServices = await Promise.all(
+    return await Promise.all(
         services.map(async (service) => {
             try {
 
@@ -39,11 +40,26 @@ const getAllServices = async () => {
             }
         })
     );
-    return allServices
     } catch (error) {
         console.error(`Error retrieving services: ${error.message}`);
         throw error;
     }
 }
 
-module.exports = { getAllServices };
+const addContact = async (contactInfo) => {
+    const newContact = new Contact(
+        null,
+        contactInfo.serviceId,
+        contactInfo.name,
+        contactInfo.phone,
+        contactInfo.email,
+        'PENDING',
+        contactInfo.time,
+        contactInfo.message
+    );
+    const result = await contactRepository.save(newContact);
+    return result.rows[0]
+}
+
+
+module.exports = { getAllServices, addContact };

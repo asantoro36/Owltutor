@@ -1,8 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {Service} from "../../entities/Service";
-import {updateService} from "../../controller/ServiceController";
-import {getContactId, saveContact, updateContact} from "../../controller/ContactController";
+import {addNewContact} from "../../services/ServiceGateway";
 
 interface ContactDialogProps {
     open: boolean,
@@ -17,7 +16,8 @@ export function ContactDialog(props: ContactDialogProps) {
         email: '',
         time: '',
         message: '',
-        name: ''
+        name: '',
+        serviceId: service.id.toString()
     });
 
     const handleInputChange = (event: any) => {
@@ -33,19 +33,7 @@ export function ContactDialog(props: ContactDialogProps) {
     };
 
     const handleContact = () => {
-
-        saveContact({
-            id: 0,
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email,
-            time: formData.time,
-            message: formData.message,
-            serviceTitle: service.title,
-            status: 'PENDING',
-            ownerId: service.responsibleId
-        })
-        handleClose()
+        addNewContact(formData).then(r => handleClose())
     };
 
     return (
