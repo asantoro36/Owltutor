@@ -2,7 +2,7 @@ import {statuses} from "../entities/ContactStatus";
 import {Divider, Paper} from "@mui/material";
 import * as React from "react";
 import {IContact} from "../entities/Contact";
-import {getContacts, updateContact} from "../controller/ContactController";
+import {updateContact} from "../controller/ContactController";
 import {getLoggedUser} from "../controller/UserController";
 
 interface ContactPaperProps {

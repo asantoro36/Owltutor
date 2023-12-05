@@ -21,8 +21,7 @@ export const LoginForm = () => {
     };
 
     const handleSubmit = () => {
-        loginUser(formData).then(() => navigate("/"))
-        setHideLoginError(false);
+        loginUser(formData).then(() => navigate("/")).catch(() => setHideLoginError(false))
     };
 
     return (

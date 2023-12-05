@@ -7,7 +7,7 @@ export const login = (userData: any) => {
         data: JSON.stringify(userData),
         headers: {'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'},
-    }).then((response) => response.data);
+    }).then((response) => response);
 };
 
 export const sendCode = (userData: any) => {

@@ -7,11 +7,12 @@ export const validateAuthCode = (code: string) => {
 
 export const loginUser = async (formData: any) => {
     const response = await login(formData)
-    console.log(response)
-    if (response) {
-       localStorage.setItem('token', response.access_token);
-       const user = await getUser(response.access_token)
-        localStorage.setItem(response.access_token, JSON.stringify(user))
+
+    if(response.status === 401) { throw new Error }
+    if (response.status) {
+       localStorage.setItem('token', response.data.access_token);
+       const user = await getUser(response.data.access_token)
+        localStorage.setItem(response.data.access_token, JSON.stringify(user))
     }
     return null;
 };

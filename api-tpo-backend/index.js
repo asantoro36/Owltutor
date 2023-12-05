@@ -28,6 +28,7 @@ app.get('/services/:serviceId', getService)
 
 app.post('/services/:id/contacts', contact)
 app.put('/contacts/:id', updateContactStatus)
+//app.put('/comments/:id', updateCommentStatus)
 
 
 

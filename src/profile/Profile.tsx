@@ -2,7 +2,6 @@ import AppBar from "../components/AppBar/AppBar";
 import React from "react";
 import { Courses } from "../courses/Courses";
 import {Tab, Tabs} from "@mui/material";
-import Typography from "@mui/material/Typography";
 import {ContactsManager} from "./ContactsManager";
 import {CommentsManager} from "./CommentsManager";
 import {UserData} from "./UserData";
