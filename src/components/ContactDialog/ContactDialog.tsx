@@ -17,8 +17,15 @@ export function ContactDialog(props: ContactDialogProps) {
         time: '',
         message: '',
         name: '',
-        serviceId: service.id.toString()
+        serviceId: ''
     });
+
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            serviceId: service.id.toString(),
+        });
+    }, [])
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;

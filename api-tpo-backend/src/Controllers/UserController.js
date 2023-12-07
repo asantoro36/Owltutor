@@ -70,6 +70,7 @@ const getUserServices = async (req, res) => {
 const getUserContacts = async (req, res) => {
     const token = req.headers.authorization;
     const userId = req.params.userId;
+    console.log(userId)
     try {
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized' });
