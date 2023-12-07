@@ -4,6 +4,7 @@ const contactRepository = require("../repository/ContactRepository");
 const categoryRepository = require("../repository/CategoryRepository");
 const userRepository = require("../repository/UserRepository");
 const Contact = require("../model/Contact");
+const Comment = require("../model/Comment");
 
 const getAllServices = async () => {
 
@@ -47,7 +48,9 @@ const getAllServices = async () => {
 
 const getService = async (serviceId) => {
     try {
+        console.log(serviceId)
         const service = await getByServiceId(serviceId)
+        console.log(service)
         const [comments, contacts, category, user] = await Promise.all([
             commentRepository.getAllByServiceId(service.id),
             contactRepository.getAllByServiceId(service.id),
@@ -97,6 +100,20 @@ const addContact = async (contactInfo) => {
     return result.rows[0]
 }
 
+const addComment = async (commentInfo) => {
+    const newComment = new Comment(
+        null,
+        commentInfo.serviceId,
+        commentInfo.userId,
+        commentInfo.message,
+        new Date(),
+        'PENDING',
+    );
+    console.log(newComment)
+    const result = await commentRepository.save(newComment);
+    return result.rows[0]
+}
+
 const remove = async (serviceId) => {
     const [comments, contacts] = await Promise.all([
         commentRepository.getAllByServiceId(serviceId),
@@ -112,4 +129,4 @@ const remove = async (serviceId) => {
 }
 
 
-module.exports = { getAllServices, addContact, getService, saveService, update, remove };
+module.exports = { getAllServices, addContact, getService, saveService, update, remove, addComment };

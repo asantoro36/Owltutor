@@ -15,7 +15,7 @@ const getServices = async (req, res) => {
 }
 
 const getService = async (req, res) => {
-    const serviceId = req.params.serviceI
+    const serviceId = req.params.serviceId
     try {
         const result = await serviceManager.getService(serviceId);
         if (result === undefined) {

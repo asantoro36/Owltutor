@@ -30,7 +30,6 @@ export const ServiceDetail = () => {
 
     const fetchData = async () => {
         try {
-            console.log("LLAMANDO")
             const service = await getService(id? id : "0");
             setService(service)
 
@@ -66,7 +65,7 @@ export const ServiceDetail = () => {
     const sendComment = () => {
         service.comments.push({
             id: 0,
-            text: newComment,
+            message: newComment,
             userId: service?.responsibleEmail,
             date: getDate(),
             status: "PENDING"

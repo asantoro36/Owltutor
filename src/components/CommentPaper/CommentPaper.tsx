@@ -9,7 +9,7 @@ interface CommentPaperProps {
     updateComment: any
 }
 export const CommentPaper = (props: CommentPaperProps) => {
-    console.log(props)
+
     const {comment, updateComment} = props
     const user = getUser(comment.userId);
 

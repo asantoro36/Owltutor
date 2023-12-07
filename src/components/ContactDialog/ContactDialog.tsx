@@ -20,13 +20,6 @@ export function ContactDialog(props: ContactDialogProps) {
         serviceId: ''
     });
 
-    useEffect(() => {
-        setFormData({
-            ...formData,
-            serviceId: service.id.toString(),
-        });
-    }, [])
-
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
         setFormData({
@@ -40,7 +33,7 @@ export function ContactDialog(props: ContactDialogProps) {
     };
 
     const handleContact = () => {
-        addNewContact(formData).then(r => handleClose())
+        addNewContact({...formData, serviceId: service.id.toString()}).then(r => handleClose())
     };
 
     return (

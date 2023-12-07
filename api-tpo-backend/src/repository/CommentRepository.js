@@ -33,5 +33,14 @@ const deleteById = async (commentId) => {
     }
 }
 
+const save = async (comment) => {
+    const query = `
+      INSERT INTO comments ("serviceId", "text", "userId", date, status)
+      VALUES ($1, $2, $3, $4, $5) RETURNING id
+    `;
+console.log(comment)
+    return await pool.query(query, [comment.serviceId, comment.message, comment.userId, comment.date, comment.status]);
+}
 
-module.exports = { getAllByServiceId, deleteById };
+
+module.exports = { getAllByServiceId, deleteById, save };

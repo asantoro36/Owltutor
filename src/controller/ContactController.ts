@@ -13,7 +13,7 @@ export const getContacts = async (): Promise<IContact[]> => {
 
     const token = localStorage.getItem('token')!!
     const userData = JSON.parse(localStorage.getItem(token)!!)
-    console.log(userData.id)
+
     return await getUserContacts(token, userData.id);
 }
 

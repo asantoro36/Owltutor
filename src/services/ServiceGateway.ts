@@ -60,8 +60,6 @@ interface ContactProps {
     serviceId: string,
 }
 export const addNewContact = (props: ContactProps) => {
-    const serviceId = props.serviceId
-    console.log(props)
     return axios({
         method: "post",
         url: `http://localhost:8080/services/${props.serviceId}/contacts`,
