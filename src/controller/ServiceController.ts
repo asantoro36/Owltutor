@@ -1,6 +1,14 @@
 import {Service} from "../entities/Service";
-import {createService, getAllServices, getServiceById, putService, remove} from "../services/ServiceGateway";
+import {
+    addNewComment,
+    createService,
+    getAllServices,
+    getServiceById,
+    putService,
+    remove, updateCommentStatus
+} from "../services/ServiceGateway";
 import {getComments, getUserServicesById} from "../services/UserService";
+import {IComment} from "../entities/Comment";
 
 export const saveService = (service: Service) => {
     createService(service, localStorage.getItem('token')!!)
@@ -27,6 +35,23 @@ export const getUserComments = async (): Promise<any[]> => {
 
 export const updateService = (service: Service) => {
     putService(service, localStorage.getItem('token')!!)
+}
+
+export const addComment = async (message: string, serviceId: string) => {
+    const token = localStorage.getItem('token')!!
+    let userData
+    if(token) {
+        userData = JSON.parse(localStorage.getItem(token)!!)
+    }
+    await addNewComment({message, userId: userData ? userData.id : null, serviceId})
+}
+
+export const makeUpdate = async (commentId: string, newStatus: string) => {
+    const token = localStorage.getItem('token')!!
+    if(token) {
+        await updateCommentStatus(commentId, newStatus, token)
+    }
+
 }
 
 

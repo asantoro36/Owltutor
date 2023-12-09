@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import AppBar from "../components/AppBar/AppBar";
-import {getService, getUserServices, updateService} from "../controller/ServiceController";
+import {addComment, getService, getUserServices, updateService} from "../controller/ServiceController";
 import {Alert, Divider, Snackbar, TextField} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import * as React from "react";
@@ -24,7 +24,7 @@ export const ServiceDetail = () => {
 
     const [open, setOpen] = React.useState(false);
     const [newComment, setNewComment] = React.useState("");
-    const [service, setService ]= useState<any>(undefined)// getService(parseInt(String(id ? parseInt(id) : -1)))
+    const [service, setService ]= useState<any>(undefined)
     const { id } = useParams();
     const [openSnack, setOpenSnack] = React.useState(false);
 
@@ -63,15 +63,8 @@ export const ServiceDetail = () => {
     };
 
     const sendComment = () => {
-        service.comments.push({
-            id: 0,
-            message: newComment,
-            userId: service?.responsibleEmail,
-            date: getDate(),
-            status: "PENDING"
-        })
-        updateService(service)
-        setNewComment("")
+
+        addComment(newComment, id!!)
         handleClick()
     }
 

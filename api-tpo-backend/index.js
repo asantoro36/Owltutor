@@ -5,7 +5,7 @@ const {createUser, getUser, getUserServices, getUserContacts, getUserComments} =
 const {authUser, recoverPassword, changePassword} = require("./src/Controllers/AuthController");
 const {getServices, contact, getService, createService, updateService, deleteService} = require("./src/Controllers/ServiceController");
 const {updateContactStatus} = require("./src/Controllers/ContactController");
-const {createComment} = require("./src/Controllers/CommentsController");
+const {createComment, updateCommentStatus} = require("./src/Controllers/CommentsController");
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,7 +31,7 @@ app.post('/services/:id/contacts', contact)
 app.put('/contacts/:id', updateContactStatus)
 
 app.post('/services/:serviceId/comments', createComment)
-//app.put('/comments/:id', updateCommentStatus)
+app.put('/comments/:id', updateCommentStatus)
 
 
 

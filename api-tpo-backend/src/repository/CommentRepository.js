@@ -42,5 +42,17 @@ console.log(comment)
     return await pool.query(query, [comment.serviceId, comment.message, comment.userId, comment.date, comment.status]);
 }
 
+const updateStatus = async (commentId, newStatus) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('UPDATE "comments" SET status = $1 WHERE id = $2', [newStatus, commentId]);
+        client.release();
+        return result
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        return []
+    }
+}
 
-module.exports = { getAllByServiceId, deleteById, save };
+
+module.exports = { getAllByServiceId, deleteById, save, updateStatus };
