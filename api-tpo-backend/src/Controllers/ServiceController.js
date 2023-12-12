@@ -1,5 +1,7 @@
 const {getAllServices, addContact} = require("../services/ServiceManager");
 const serviceManager = require("../services/ServiceManager");
+const {isValidAuth, isValidToken} = require("../services/Authenticator");
+const userService = require("../services/UserService");
 const getServices = async (req, res) => {
     try {
         const result = await getAllServices();
@@ -19,7 +21,7 @@ const getService = async (req, res) => {
     try {
         const result = await serviceManager.getService(serviceId);
         if (result === undefined) {
-            res.status(500)
+            res.status(404)
         } else{
             res.status(201).json(result);
         }
@@ -30,12 +32,17 @@ const getService = async (req, res) => {
 }
 
 const createService = async (req, res) => {
+    const token = req.headers.authorization;
     try {
-        const result = await serviceManager.saveService(req.body)
-        if (result) {
-            res.status(500)
-        } else{
-            res.status(201).json(result);
+        if(isValidToken(token)) {
+            const result = await serviceManager.saveService(req.body)
+            if (result) {
+                return res.status(400)
+            } else{
+                return res.status(201).json(result);
+            }
+        } else {
+            return res.status(401).json({ error: 'Unauthorized' });
         }
     } catch (error) {
         console.error('fallo al crear servicio:', error);
@@ -46,13 +53,17 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
     const serviceId = req.params.serviceId
     const updatedServiceData = { ...req.body, serviceId };
-
+    const token = req.headers.authorization;
     try {
-        const result = await serviceManager.update(updatedServiceData)
-        if (result) {
-            res.status(200).json({message: "OK"});
-        } else{
-            res.status(404).json({message: "NOT FOUND"})
+        if(isValidToken(token)) {
+            const result = await serviceManager.update(updatedServiceData)
+            if (result) {
+                res.status(200).json({message: "OK"});
+            } else{
+                res.status(404).json({message: "NOT FOUND"})
+            }
+        } else {
+            return res.status(401).json({ error: 'Unauthorized' });
         }
     } catch (error) {
         console.error('fallo al crear servicio:', error);
@@ -62,10 +73,16 @@ const updateService = async (req, res) => {
 
 const deleteService = async (req, res) => {
     const serviceId = req.params.serviceId
+    const token = req.headers.authorization;
 
     try {
-        serviceManager.remove(serviceId)
-        res.status(200).json({message: "OK"});
+        if (isValidToken(token)) {
+            serviceManager.remove(serviceId)
+            res.status(200).json({message: "OK"});
+        } else {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
 
     } catch (error) {
         console.error('fallo al crear servicio:', error);

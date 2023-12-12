@@ -6,6 +6,10 @@ const {authUser, recoverPassword, changePassword} = require("./src/Controllers/A
 const {getServices, contact, getService, createService, updateService, deleteService} = require("./src/Controllers/ServiceController");
 const {updateContactStatus} = require("./src/Controllers/ContactController");
 const {createComment, updateCommentStatus} = require("./src/Controllers/CommentsController");
+const swaggerUi = require('swagger-ui-express');
+const router = require('express').Router();
+const swaggerDocument = require('./swagger.json');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,7 +37,7 @@ app.put('/contacts/:id', updateContactStatus)
 app.post('/services/:serviceId/comments', createComment)
 app.put('/comments/:id', updateCommentStatus)
 
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = 8080;
 app.listen(PORT, () => {

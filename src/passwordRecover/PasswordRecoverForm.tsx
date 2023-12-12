@@ -24,8 +24,11 @@ export const PasswordRecoverForm = () => {
     });
     const [showEmailError, setShowEmailError] = useState(false)
     const handleInputChange = (event: any) => {
+        setFormData({
+            ...formData,
+            "email": event.target.value,
+        });
 
-        sendCode({email: event.target.value})
         setUserIdentity(event.target.value)
     };
 
@@ -38,6 +41,7 @@ export const PasswordRecoverForm = () => {
                 ...formData,
                 "email": userIdentity,
             });
+            sendCode({email: formData.email})
             setIsUserInserted(true)
         }
     };

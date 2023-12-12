@@ -19,7 +19,7 @@ export const UserData = () => {
     const [formData, setFormData] = useState({
         name: loggedUser? loggedUser?.name: "",
         surname: loggedUser? loggedUser?.surname: "",
-        mail: loggedUser? loggedUser?.mail: "",
+        email: loggedUser? loggedUser?.email: "",
         phone: loggedUser? loggedUser?.phone: "",
         password: loggedUser? loggedUser?.password: "",
         title: loggedUser? loggedUser?.title: "",
@@ -50,19 +50,11 @@ export const UserData = () => {
     const handleContinueButton = () => {
         setNameError(formData.name.trim() === "")
         setSurnameError(formData.surname.trim() === "")
-        setMailError(formData.mail.trim() === "")
+        setMailError(formData.email.trim() === "")
         setPhoneError(formData.phone.trim() === "")
-        setUserExistingError(validateUserExisting(formData.mail))
+        setUserExistingError(validateUserExisting(formData.email))
         const isValidPassword = formData.password.trim() !== "" && formData.password === passwordRepeat;
         setPasswordValidateError(!isValidPassword);
-
-    }
-
-    function getRandomColor() {
-        const randomR = Math.floor(Math.random() * 256);
-        const randomG = Math.floor(Math.random() * 256);
-        const randomB = Math.floor(Math.random() * 256);
-        return `rgb(${randomR},${randomG},${randomB})`;
     }
 
     const handleCreateUserButton = () => {
@@ -119,7 +111,7 @@ export const UserData = () => {
                     margin="normal"
                     label="e-mail"
                     name="mail"
-                    value={formData.mail}
+                    value={formData.email}
                     onChange={handleInputChange}
                     required
                     error={mailError}

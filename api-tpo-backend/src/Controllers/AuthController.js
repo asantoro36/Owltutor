@@ -40,12 +40,13 @@ const createAccount = async (req, res) => {
     if (result.rows.length > 0) {
         res.json({ status: 'success', message: 'Inicio de sesión exitoso', user: { email } });
     } else {
-        res.status(401).json({ status: 'error', message: 'Credenciales incorrectas' });
+        res.status(400).json({ status: 'error', message: 'Credenciales incorrectas' });
     }
 }
 
 const recoverPassword = async (req, res) => {
     const {email} = req.body;
+    console.log(email)
     const userSaved = await getByEmail(email);
     const number = generateRandomNumber()
     const emailTemplate = `<!DOCTYPE html>
@@ -98,7 +99,7 @@ const recoverPassword = async (req, res) => {
 </html>`;
 
     const msg = {
-        to: 'axelsantoro@gmail.com',
+        to: 'nat.hauser88@gmail.com',
         from: 'axsantoro@uade.edu.ar',
         subject: '[test] Recuperar password',
         html: emailTemplate
@@ -125,8 +126,8 @@ const changePassword = async (req, res) => {
         await changeUserPassword({newPassword, email})
         res.status(200).json({message:"OK"})
     } catch (error) {
-        res.status(401)
-        console.error('Error al enviar el correo:', error);
+        res.status(500)
+        console.error('error:', error);
     }
 
 }
