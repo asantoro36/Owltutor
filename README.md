@@ -17,4 +17,4 @@ https://documenter.getpostman.com/view/17393998/2s9YkhgPNY
 La base de datos que se utilizó es un postgresql para crearla se puede usar [esté script](https://docs.google.com/document/d/1NVkDXOSYkGA7clsDKPRk8rQ7hgpaCvHYzFpsaBsEXnM/edit?usp=sharing)
 
 ## Endpoints disponibles
-
+[LALA](./api-tpo-backend/swagger.json)
